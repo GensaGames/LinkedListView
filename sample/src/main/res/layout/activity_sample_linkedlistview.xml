@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity.main.coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/activity.linear.custom.pager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/main_linkedlistview_background" />
+
+        <com.gensagames.linkedlistview.LinkedListView
+            android:id="@+id/custom.pager.circle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            android:background="@android:color/transparent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/linkedlistview"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/activity.main.container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity.fab.add.objects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:scaleType="center"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"
+        app:layout_anchor="@+id/activity.linear.custom.pager"
+        app:layout_anchorGravity="bottom|left" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity.fab.add.objects1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:scaleType="center"
+        android:src="@android:drawable/ic_delete"
+        android:tint="@android:color/white"
+        app:layout_anchor="@+id/activity.linear.custom.pager"
+        app:layout_anchorGravity="bottom|left" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity.fab.add.objects2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        android:tint="@android:color/white"
+        app:layout_anchor="@+id/activity.linear.custom.pager"
+        app:layout_anchorGravity="bottom|left" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp">
+
+        <LinearLayout
+            android:id="@+id/layout.main.holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

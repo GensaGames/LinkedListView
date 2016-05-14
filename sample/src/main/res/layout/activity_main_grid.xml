@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/grid_item_padding">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/custom.scroll.view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:padding="@dimen/grid_item_padding">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/grid.item.image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/sample_image_logo1"  />
+
+
+        <TextView
+            android:id="@+id/grid.item.text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightGray"
+            android:layout_gravity="center_horizontal|bottom"
+            android:padding="@dimen/grid_item_text_padding"
+            android:text="@string/grid_item_circle"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/grid_item_text"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+</FrameLayout>

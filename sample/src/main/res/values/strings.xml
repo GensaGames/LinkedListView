@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CustomCircleView</string>
+    <string name="grid_item_circle">Scale Center Circle</string>
+    <string name="grid_item_point">Point Moving \n </string>
+    <string name="grid_item_simple_point">Point Moving (Simple)</string>
+    <string name="linkedlistview">LinkedListView</string>
+</resources>
