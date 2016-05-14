@@ -1,4 +1,4 @@
-package com.gensagames.customcircleview.activities;
+package com.gensagames.sample.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gensagames.customcircleview.ActivityMain;
-import com.gensagames.customcircleview.R;
+import com.gensagames.sample.ActivityMain;
+import com.gensagames.sample.R;
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
 import com.gensagames.linkedlistview.sample.SimplePointPagerAdapter;

@@ -1,4 +1,4 @@
-package com.gensagames.customcircleview;
+package com.gensagames.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gensagames.customcircleview.activities.ActivityPointMoving;
-import com.gensagames.customcircleview.activities.ActivityScaleCircle;
-import com.gensagames.customcircleview.activities.ActivitySimplePointMoving;
-import com.gensagames.customcircleview.adapter.GridAdapter;
-import com.gensagames.customcircleview.adapter.model.GridItem;
+import com.gensagames.sample.activities.ActivityPointMoving;
+import com.gensagames.sample.activities.ActivityScaleCircle;
+import com.gensagames.sample.activities.ActivitySimplePointMoving;
+import com.gensagames.sample.adapter.GridAdapter;
+import com.gensagames.sample.adapter.model.GridItem;
 
 
 public class ActivityMain extends AppCompatActivity implements GridAdapter.OnItemClickListener {

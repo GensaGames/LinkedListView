@@ -1,8 +1,8 @@
-package com.gensagames.customcircleview.adapter.model;
+package com.gensagames.sample.adapter.model;
 
 import android.content.Context;
 
-import com.gensagames.customcircleview.R;
+import com.gensagames.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;

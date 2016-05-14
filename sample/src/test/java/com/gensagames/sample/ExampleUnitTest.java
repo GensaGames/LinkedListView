@@ -1,4 +1,4 @@
-package com.gensagames.customcircleview;
+package com.gensagames.sample;
 
 import org.junit.Test;
 
