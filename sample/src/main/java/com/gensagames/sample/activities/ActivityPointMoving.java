@@ -43,7 +43,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, sample element initializing
      * and using for handling animation, clicks, etc.
-     * <p/>
+     *
      */
     private void setupPointData() {
         PointMovingController animationController;
@@ -59,7 +59,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, adding view to last index,
      * adding view in median index, removing view from index.
-     * <p/>
+     *
      */
     @Override
     public void onClick(View v) {
@@ -87,7 +87,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, adding view to last index,
      * adding view in median index, removing view from index.
-     * <p/>
+     *
      */
 
     private void bindActivity() {

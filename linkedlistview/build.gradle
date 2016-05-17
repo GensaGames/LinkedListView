@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -16,10 +17,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+}
+
+publish {
+    groupId = 'com.github.gensagames'
+    artifactId = 'linkedlistview'
+    publishVersion = '0.0.8'
+    desc = 'Android ListView that holds link to view, for animation. '
+    licences = ['MIT']
+    website = 'https://github.com/GensaGames/LinkedListView'
 }

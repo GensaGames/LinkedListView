@@ -42,7 +42,7 @@ public class LinkedListView extends HorizontalScrollView
      * and his parameters = Gravity. Next, we add this layout to our ScrollView.
      * Setting empty AnimationController and adding ScrollChangeListener.
      * TODO: Add child gravity from XML AnimatedViewPager
-     * <p/>
+     *
      *
      * @param context       - main View holder LinerLayout
      * @param holderGravity - gravity for LinerLayout
@@ -61,7 +61,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Setting up AnimationController
-     * <p/>
+     *
      *
      * @param animationController - AnimatedViewPager.AnimationController
      */
@@ -73,7 +73,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Setting up Adapter and call function, for updating Views
-     * <p/>
+     *
      *
      * @param abstractPagerAdapter - AnimatedViewPager.Adapter
      */
@@ -114,7 +114,7 @@ public class LinkedListView extends HorizontalScrollView
     /**
      * Methods for detaching view to main Holder layout on ScrollView.
      * Called from method - notifyDatasetChanged();
-     * <p/>
+     *
      * TODO(CustomViewPager): Add onScroll change, to functions below
      */
 
@@ -145,7 +145,7 @@ public class LinkedListView extends HorizontalScrollView
     /**
      * Method for listening onClick action.
      * This method may be deleted.
-     * <p/>
+     *
      *
      * @param v - onClick View
      */
@@ -168,7 +168,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Interface for main view Items to listen action
-     * <p/>
+     *
      * Simple interface for adding click listener and callback.
      */
 
@@ -180,7 +180,7 @@ public class LinkedListView extends HorizontalScrollView
     /**
      * Use delegation, and call function AnimationController,
      * for programmatically scroll ScrollView to View position.
-     * <p/>
+     *
      *
      * @param viewFocus      - scroll to View
      * @param scrollDuration - animation duration
@@ -192,7 +192,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Class returning Animation
-     * <p/>
+     *
      * Interface returning animation for two type action growing
      * up view element and falling down to side.
      * TODO(Doc): Update Doc about adapter methods.
@@ -304,7 +304,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Base class for an Adapter
-     * <p/>
+     *
      * Adapters provide a binding from an app-specific data set to views that are displayed.
      * Implements some base methods. TODO(Doc): Update Doc about adapter methods.
      */
@@ -339,7 +339,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Interface for Divider Items, Maybe will be implemented
-     * <p/>
+     *
      * Create special Adapter's type for adding item divider between
      * elements. Some methods are commented
      * TODO(CustomViewPager): Delete ItemDivider after all changes!

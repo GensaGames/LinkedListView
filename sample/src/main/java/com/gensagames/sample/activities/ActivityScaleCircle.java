@@ -44,7 +44,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, sample element initializing
      * and using for handling animation, clicks, etc.
-     * <p/>
+     *
      */
     private void setupCircleData() {
         pagerAdapter = new CirclePagerAdapter(this);
@@ -58,7 +58,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, adding view to last index,
      * adding view in median index, removing view from index.
-     * <p/>
+     *
      */
     @Override
     public void onClick(View v) {
@@ -87,7 +87,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
      * -------------------------------------------
      *  Ignore! Base test generation stubs! For
      *  creating screenshots, and looking.
-     * <p/>
+     *
      * -------------------------------------------
      */
 
