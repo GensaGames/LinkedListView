@@ -272,8 +272,10 @@ public class LinkedListView extends HorizontalScrollView
 
         public final int getScrollViewWidth() {
             if (scrollViewWidth == 0) {
-                scrollViewWidth = ((HorizontalScrollView)
-                        (getMainViewHolder().getParent())).getWidth();
+                View parent = ((HorizontalScrollView)
+                        (getMainViewHolder().getParent()));
+                scrollViewWidth = parent.getWidth() - parent.getPaddingLeft()
+                        - parent.getPaddingRight();
             }
             return scrollViewWidth;
         }
