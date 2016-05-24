@@ -4,8 +4,6 @@
  
 It's simple view, that hold view and save links in list. Using several implementations - Adapter and AnimationController, LinkedListview allows to animate and change child view in anytime. Library contains several examples, and realization to animate views per scrolling, but LinkedListView only works with coordinates! Feel free to live comments, suggestions and issues.
 
-Note! This is alpha verision. I will update this project with the new interesting samples and features in first free time. 
-
 
 
 <img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-SimplePointMoving.gif" width="280" height="450" />
@@ -40,7 +38,7 @@ LinkedListView.Adapter adapter = new MyBaseAdapter ();
 listview.setViewPager(adapter);
 ....
 ```
-For updating viesw in any their states, use class LinkedListView.AnimationController. This class provides acces to all views and some usefull methods. **Se samples for more information. Some part of methods already documented in library...**
+For updating viesw in any their states, use class LinkedListView.AnimationController. This class provides acces to all views and some usefull methods. **See samples for more information. Some part of methods already documented in library...**
 ```
 ....
 LinkedListView.AnimationController controller = new MyBaseAnimController ();
