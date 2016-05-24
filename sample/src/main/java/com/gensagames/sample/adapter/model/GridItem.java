@@ -35,11 +35,11 @@ public class GridItem {
     public static List<GridItem> getBaseItems (Context context) {
         List<GridItem> gridItems = new ArrayList<>();
         gridItems.add(new GridItem(context.getResources().getString(R.string.grid_item_circle),
-                R.drawable.sample_image_logo1));
+                R.drawable.sample_image_logo3));
         gridItems.add(new GridItem(context.getResources().getString(R.string.grid_item_point),
                 R.drawable.sample_image_logo2));
         gridItems.add(new GridItem(context.getResources().getString(R.string.grid_item_simple_point),
-                R.drawable.sample_image_logo3));
+                R.drawable.sample_image_logo1));
         return gridItems;
     }
 }
