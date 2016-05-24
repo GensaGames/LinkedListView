@@ -1,5 +1,4 @@
-# LinkedListView - 0.2.0
-======================
+# LinkedListView - 0.2.1
 
 [ ![Download](https://api.bintray.com/packages/gensagames/maven/linkedlistview/images/download.svg) ](https://bintray.com/gensagames/maven/linkedlistview/_latestVersion)
  
@@ -21,15 +20,15 @@ You can find library in Maven and JCenter. Adding to project:
 #### Gradle
 ```
 dependencies {
-    compile 'net.gotev:uploadservice:2.1'
+    compile 'com.github.gensagames:linkedlistview:0.2.1'
 }
 ```
 #### Maven
 ```
 <dependency>
-  <groupId>net.gotev</groupId>
-  <artifactId>uploadservice</artifactId>
-  <version>2.1</version>
+  <groupId>com.github.gensagames</groupId>
+  <artifactId>linkedlistview</artifactId>
+  <version>0.2.1</version>
   <type>aar</type>
 </dependency>
 ```
