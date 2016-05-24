@@ -1,30 +1,57 @@
-# LinkedListView (Alpha version)
+# LinkedListView - 0.2.1
 
-It's simple view, that hold view and save links in list. Using several implementations - Adapter and AnimationController, LinkedListview allows to animate and change child view in anytime. Library contains several examples, and realization to animate views per scrolling, but LinkedListView only works with coordinates.
+[ ![Download](https://api.bintray.com/packages/gensagames/maven/linkedlistview/images/download.svg) ](https://bintray.com/gensagames/maven/linkedlistview/_latestVersion)
+ 
+It's simple view, that hold view and save links in list. Using several implementations - Adapter and AnimationController, LinkedListview allows to animate and change child view in anytime. Library contains several examples, and realization to animate views per scrolling, but LinkedListView only works with coordinates! Feel free to live comments, suggestions and issues.
 
-Note! This is alpha verision!
+Note! This is alpha verision. I will update this project with the new interesting samples and features in first free time. 
 
-# License
 
-MIT License (Free Software, Hell Yeah!)
+
+<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-SimplePointMoving.gif" width="280" height="450" />
+<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-ScaleCenter.gif" width="280" height="450" />
+<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-PointMoving.gif" width="280" height="450" />
+
+
+
+## Getting started
+You can find library in Maven and JCenter. Adding to project: 
+
+#### Gradle
+```
+dependencies {
+    compile 'com.github.gensagames:linkedlistview:0.2.1'
+}
+```
+#### Maven
+```
+<dependency>
+  <groupId>com.github.gensagames</groupId>
+  <artifactId>linkedlistview</artifactId>
+  <version>0.2.1</version>
+  <type>aar</type>
+</dependency>
+```
+Main view that extend ScrollView and hold all child views, as simple ListView - LinkedListView. All views managing takes LinkedListView.Adapter, that works as simple Android ArrayAdapter(SimpleAdapter, etc.). Some example of base initializing.
+
+```
+LinkedListView listView = new LinkedListView (getContext());
+LinkedListView.Adapter adapter = new MyBaseAdapter ();
+listview.setViewPager(adapter);
+....
+```
+For updating viesw in any their states, use class LinkedListView.AnimationController. This class provides acces to all views and some usefull methods. **Se samples for more information. Some part of methods already documented in library...**
+```
+....
+LinkedListView.AnimationController controller = new MyBaseAnimController ();
+listview.setAnimationController(controller);
+....
+```
+
+
+## License
+
+MIT License 
 
 Copyright (c) 2016 GensaGames
-```sh
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
