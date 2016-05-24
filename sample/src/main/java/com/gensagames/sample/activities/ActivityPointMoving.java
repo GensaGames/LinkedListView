@@ -52,7 +52,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
         pagerAdapter = new PointPagerAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
-        linkedListView.setCirclePagerAdapter(pagerAdapter);
+        linkedListView.setViewPager(pagerAdapter);
         linkedListView.setAnimationController(animationController);
     }
 

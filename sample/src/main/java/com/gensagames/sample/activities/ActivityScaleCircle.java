@@ -48,7 +48,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
      */
     private void setupCircleData() {
         pagerAdapter = new CirclePagerAdapter(this);
-        linkedListView.setCirclePagerAdapter(pagerAdapter);
+        linkedListView.setViewPager(pagerAdapter);
 
         ScaleCenterController animationController = new CirclePagerAdapter.AnimationController(1.5, 0.5);
         linkedListView.setAnimationController(animationController);

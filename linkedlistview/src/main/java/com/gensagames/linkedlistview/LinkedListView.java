@@ -77,7 +77,7 @@ public class LinkedListView extends HorizontalScrollView
      *
      * @param abstractPagerAdapter - AnimatedViewPager.Adapter
      */
-    public void setCirclePagerAdapter(Adapter abstractPagerAdapter) {
+    public void setViewPager(Adapter abstractPagerAdapter) {
         this.abstractPagerAdapter = abstractPagerAdapter;
         this.abstractPagerAdapter.setContext(this);
         updateDatasetChanged();

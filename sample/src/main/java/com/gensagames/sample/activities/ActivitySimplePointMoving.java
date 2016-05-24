@@ -52,7 +52,7 @@ public class ActivitySimplePointMoving extends Activity implements View.OnClickL
         pagerAdapter = new SimplePointPagerAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
-        linkedListView.setCirclePagerAdapter(pagerAdapter);
+        linkedListView.setViewPager(pagerAdapter);
         linkedListView.setAnimationController(animationController);
     }
 
