@@ -30,7 +30,9 @@ dependencies {
   <type>aar</type>
 </dependency>
 ```
-Main view that extend ScrollView and hold all child views, as simple ListView - LinkedListView. All views managing takes LinkedListView.Adapter, that works as simple Android ArrayAdapter(SimpleAdapter, etc.). Some example of base initializing.
+
+## Basic Usage
+Main view that extend ScrollView and hold all child views, as simple ListView - LinkedListView. All views managing takes LinkedListView.Adapter, he works as simple Android ArrayAdapter(SimpleAdapter, etc.). Some example of base initializing.
 
 ```
 LinkedListView listView = new LinkedListView (getContext());
