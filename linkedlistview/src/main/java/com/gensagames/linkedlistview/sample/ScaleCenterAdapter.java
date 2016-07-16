@@ -15,12 +15,12 @@ import com.gensagames.linkedlistview.LinkedListView;
  * Created by Genka on 25.01.2016.
  * GensaGames
  */
-public class CirclePagerAdapter extends LinkedListView.Adapter  {
+public class ScaleCenterAdapter extends LinkedListView.Adapter  {
 
     private Context mainContext;
     private LinkedList<View> mainViewList;
 
-    public CirclePagerAdapter (Context mainContext) {
+    public ScaleCenterAdapter(Context mainContext) {
         this.mainContext = mainContext;
         mainViewList = new LinkedList<>();
     }

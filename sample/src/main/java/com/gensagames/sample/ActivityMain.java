@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gensagames.sample.activities.ActivityCenterMotion;
 import com.gensagames.sample.activities.ActivityPointMoving;
 import com.gensagames.sample.activities.ActivityScaleCircle;
 import com.gensagames.sample.activities.ActivitySimplePointMoving;
@@ -52,6 +53,10 @@ public class ActivityMain extends AppCompatActivity implements GridAdapter.OnIte
 
         if (TextUtils.equals(source, getString(R.string.grid_item_simple_point))) {
             startActivity(new Intent(getApplicationContext(), ActivitySimplePointMoving.class));
+        }
+
+        if (TextUtils.equals(source, getString(R.string.grid_item_center_motion))) {
+            startActivity(new Intent(getApplicationContext(), ActivityCenterMotion.class));
         }
     }
 

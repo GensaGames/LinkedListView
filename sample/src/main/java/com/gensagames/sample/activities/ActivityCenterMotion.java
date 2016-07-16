@@ -1,6 +1,6 @@
 package com.gensagames.sample.activities;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,48 +8,46 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gensagames.linkedlistview.LinkedListView;
+import com.gensagames.linkedlistview.anim.CenterMotionController;
+import com.gensagames.linkedlistview.anim.PointMovingController;
+import com.gensagames.linkedlistview.sample.MotionCenterAdapter;
+import com.gensagames.linkedlistview.sample.PointMovingAdapter;
+import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
-import com.gensagames.linkedlistview.LinkedListView;
-import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.linkedlistview.sample.SimplePointAdapter;
-import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.thedeanda.lorem.LoremIpsum;
 
 import java.util.Random;
 
-/**
- * Created by Genka on 10.05.2016.
- * GensaGames
- */
-public class ActivitySimplePointMoving extends Activity implements View.OnClickListener,
-        LinkedListView.OnItemClickListener{
+public class ActivityCenterMotion extends AppCompatActivity implements View.OnClickListener,
+        LinkedListView.OnItemClickListener {
 
 
     private LinkedListView linkedListView;
-    private SimplePointAdapter pagerAdapter;
+    private MotionCenterAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample_linkedlistview);
+        setContentView(R.layout.activity_center_motion);
 
         bindActivity();
         loadBaseStubs();
         setupPointData();
     }
 
+
     /**
      * Testing work with LinkedListView, sample element initializing
      * and using for handling animation, clicks, etc.
      *
      */
-
     private void setupPointData() {
-        PointMovingController animationController;
+        CenterMotionController animationController;
         linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
-        animationController = new SimplePointAdapter.AnimationController();
-        pagerAdapter = new SimplePointAdapter(this);
+        animationController = new MotionCenterAdapter.AnimationController();
+        pagerAdapter = new MotionCenterAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
         linkedListView.setViewPager(pagerAdapter);

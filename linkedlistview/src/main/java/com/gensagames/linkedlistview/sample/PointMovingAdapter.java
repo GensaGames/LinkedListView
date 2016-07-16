@@ -33,12 +33,12 @@ import com.gensagames.linkedlistview.sample.utils.DefaultSize;
  * -----------------------------------------
  */
 
-public class PointPagerAdapter extends LinkedListView.Adapter {
+public class PointMovingAdapter extends LinkedListView.Adapter {
 
     private Context mainContext;
     private LinkedList<View> mainViewList;
 
-    public PointPagerAdapter(Context mainContext) {
+    public PointMovingAdapter(Context mainContext) {
         this.mainContext = mainContext;
         mainViewList = new LinkedList<>();
     }

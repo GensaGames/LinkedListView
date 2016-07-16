@@ -6,13 +6,13 @@ package com.gensagames.linkedlistview.sample.utils;
  */
 public class DefaultSize {
     /**
-     * Simple Size for default CirclePagerAdapter
+     * Simple Size for default ScaleCenterAdapter
      */
     public static final int CIRCLE_PARENT = 60;
     public static final int CIRCLE_VIEW = 40;
 
     /**
-     * Simple Size for default PointPagerAdapter
+     * Simple Size for default PointMovingAdapter
      */
     public static final int POINT_PARENT = 80;
     public static final int POINT_VIEW = 20;

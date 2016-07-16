@@ -13,7 +13,7 @@ import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.ScaleCenterController;
-import com.gensagames.linkedlistview.sample.CirclePagerAdapter;
+import com.gensagames.linkedlistview.sample.ScaleCenterAdapter;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.thedeanda.lorem.LoremIpsum;
 
@@ -28,7 +28,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
 
 
     private LinkedListView linkedListView;
-    private CirclePagerAdapter pagerAdapter;
+    private ScaleCenterAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,10 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
      *
      */
     private void setupCircleData() {
-        pagerAdapter = new CirclePagerAdapter(this);
+        pagerAdapter = new ScaleCenterAdapter(this);
         linkedListView.setViewPager(pagerAdapter);
 
-        ScaleCenterController animationController = new CirclePagerAdapter.AnimationController(1.5, 0.5);
+        ScaleCenterController animationController = new ScaleCenterAdapter.AnimationController(1.5, 0.5);
         linkedListView.setAnimationController(animationController);
         pagerAdapter.setOnItemClickListener(this);
     }

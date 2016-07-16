@@ -16,12 +16,12 @@ import java.util.LinkedList;
  * Created by Genka on 10.05.2016.
  * GensaGames
  */
-public class SimplePointPagerAdapter extends LinkedListView.Adapter {
+public class SimplePointAdapter extends LinkedListView.Adapter {
 
     private Context mainContext;
     private LinkedList<View> mainViewList;
 
-    public SimplePointPagerAdapter(Context mainContext) {
+    public SimplePointAdapter(Context mainContext) {
         this.mainContext = mainContext;
         mainViewList = new LinkedList<>();
     }

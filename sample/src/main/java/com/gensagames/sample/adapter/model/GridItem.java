@@ -40,6 +40,8 @@ public class GridItem {
                 R.drawable.sample_image_logo2));
         gridItems.add(new GridItem(context.getResources().getString(R.string.grid_item_simple_point),
                 R.drawable.sample_image_logo1));
+        gridItems.add(new GridItem(context.getResources().getString(R.string.grid_item_center_motion),
+                android.R.drawable.alert_light_frame));
         return gridItems;
     }
 }

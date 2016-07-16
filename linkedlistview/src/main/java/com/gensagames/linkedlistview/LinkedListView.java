@@ -2,9 +2,7 @@ package com.gensagames.linkedlistview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-import com.gensagames.linkedlistview.anim.NoneController;
+import com.gensagames.linkedlistview.anim.EmptyController;
 
 
 /**
@@ -54,7 +52,7 @@ public class LinkedListView extends HorizontalScrollView
         linearMainHolder.setGravity(holderGravity);
         addView(linearMainHolder);
 
-        animationController = new NoneController();
+        animationController = new EmptyController();
         animationController.setContext(this);
         getViewTreeObserver().addOnScrollChangedListener(this);
     }
@@ -337,65 +335,5 @@ public class LinkedListView extends HorizontalScrollView
 
         public abstract int getObjectCount();
     }
-
-
-    /**
-     * Interface for Divider Items, Maybe will be implemented
-     *
-     * Create special Adapter's type for adding item divider between
-     * elements. Some methods are commented
-     * TODO(CustomViewPager): Delete ItemDivider after all changes!
-     */
-
-    private interface ItemDivider {
-        View getObjectDivider();
-    }
-
-    /*
-    private ArrayList<View> linkedDividerList;
-    linkedDividerList = new ArrayList<>();
-
-        //Deleting View Divider
-        if (presenceDivider && mainViewHolder.getChildCount() > 1) {
-            if (index == FIRST_POSITION) {
-                mainViewHolder.removeView(
-                        linkedDividerList.remove(FIRST_POSITION));
-            }
-            else if (index == getLastViewPos()) {
-                mainViewHolder.removeView(
-                        linkedDividerList.remove(getLastDividerPos()));
-            }
-            else {
-                mainViewHolder.removeView(
-                        linkedDividerList.remove(index - 1));
-            }
-        }
-
-
-        //Adding View Divider by index
-        int viewIndex = presenceDivider ? index + (index ) : index;
-        if (presenceDivider) {
-            View divider = ((ItemDivider) abstractPagerAdapter).getObjectDivider();
-            linkedDividerList.add(index, divider);
-            mainViewHolder.addView(divider, viewIndex);
-        }
-        //Adding View Divider
-        if (presenceDivider && mainViewHolder.getChildCount() > 0) {
-            View divider = ((ItemDivider) abstractPagerAdapter).getObjectDivider();
-            linkedDividerList.add(divider);
-            mainViewHolder.addView(divider);
-        }
-
-        //Scrolling include Divider
-        if (presenceDivider && viewsOffset < totalScrollOffset) {
-                viewsOffset+= linkedDividerList.get(index).getWidth();
-                firstVisibleItem++;
-            }
-
-
-    private int getLastDividerPos () {
-        return linkedDividerList.size() - 1;
-    }*/
-
 
 }

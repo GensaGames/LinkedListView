@@ -12,7 +12,7 @@ import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.linkedlistview.sample.PointPagerAdapter;
+import com.gensagames.linkedlistview.sample.PointMovingAdapter;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.thedeanda.lorem.LoremIpsum;
 
@@ -27,7 +27,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
 
 
     private LinkedListView linkedListView;
-    private PointPagerAdapter pagerAdapter;
+    private PointMovingAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
     private void setupPointData() {
         PointMovingController animationController;
         linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
-        animationController = new PointPagerAdapter.AnimationController();
-        pagerAdapter = new PointPagerAdapter(this);
+        animationController = new PointMovingAdapter.AnimationController();
+        pagerAdapter = new PointMovingAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
         linkedListView.setViewPager(pagerAdapter);
