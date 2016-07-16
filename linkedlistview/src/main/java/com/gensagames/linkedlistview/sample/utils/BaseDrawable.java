@@ -29,7 +29,7 @@ public class BaseDrawable {
         return shape;
     }
 
-    public static ViewGroup getAdapterPointView(Context context) {
+    public static ViewGroup getPointView(Context context) {
         final float scale = context.getResources().getDisplayMetrics().density;
         FrameLayout.LayoutParams parentParams = new FrameLayout.LayoutParams
                 ((int) (DefaultSize.POINT_PARENT * scale + 0.5f) ,
@@ -56,7 +56,7 @@ public class BaseDrawable {
         return parentLayout;
     }
 
-    public static ViewGroup getAdapterSimplePointView(Context context) {
+    public static ViewGroup getNumericPoint(Context context) {
         final float scale = context.getResources().getDisplayMetrics().density;
         FrameLayout.LayoutParams parentParams = new FrameLayout.LayoutParams
                 ((int) (DefaultSize.POINT_PARENT * scale + 0.5f) ,
@@ -94,33 +94,31 @@ public class BaseDrawable {
         return parentLayout;
     }
 
-    public  static ViewGroup getSimpleCircle(Context context) {
+    public  static ViewGroup getSimpleCircle(Context context, int circleSize, int sizeInside) {
         final float scale = context.getResources().getDisplayMetrics().density;
         FrameLayout.LayoutParams parentParams = new FrameLayout.LayoutParams
-                ((int) (DefaultSize.CIRCLE_PARENT * scale + 0.5f) ,
-                        (int) (DefaultSize.CIRCLE_PARENT * scale + 0.5f), Gravity.CENTER);
+                ((int) (circleSize * scale + 0.5f) ,
+                        (int) (circleSize * scale + 0.5f), Gravity.CENTER);
 
         FrameLayout.LayoutParams pointParams = new FrameLayout.LayoutParams
-                ((int) (DefaultSize.CIRCLE_VIEW * scale + 0.5f) ,
-                        (int) (DefaultSize.CIRCLE_VIEW * scale + 0.5f), Gravity.CENTER);
+                ((int) (sizeInside * scale + 0.5f) ,
+                        (int) (sizeInside * scale + 0.5f), Gravity.CENTER);
 
         FrameLayout parentLayout = new FrameLayout(context);
         parentLayout.setLayoutParams(parentParams);
 
         ImageView imageView = new ImageView(context);
         imageView.setLayoutParams(pointParams);
-        imageView.setImageDrawable(BaseDrawable
-                .generateCircleDrawable(DefaultSize.CIRCLE_VIEW));
-
+        imageView.setImageDrawable(BaseDrawable.generateCircleDrawable(sizeInside));
         parentLayout.addView(imageView);
         return parentLayout;
     }
 
-    public static ImageView getCustomImage(Context context) {
+    public static ImageView getCustomImage(Context context, int viewInside) {
         final float scale = context.getResources().getDisplayMetrics().density;
         FrameLayout.LayoutParams pointParams = new FrameLayout.LayoutParams
-                ((int) (DefaultSize.CIRCLE_VIEW * scale + 0.5f) ,
-                        (int) (DefaultSize.CIRCLE_VIEW * scale + 0.5f), Gravity.CENTER);
+                ((int) (viewInside * scale + 0.5f) ,
+                        (int) (viewInside * scale + 0.5f), Gravity.CENTER);
         ImageView image = new ImageView(context);
         image.setImageDrawable(ContextCompat.getDrawable(context, android.R.drawable.ic_dialog_map));
         image.setLayoutParams(pointParams);
@@ -131,6 +129,7 @@ public class BaseDrawable {
         return image;
     }
 
+    @SuppressWarnings("unused")
     public static View getObjectDivider(Context context) {
         FrameLayout.LayoutParams parentParams = new FrameLayout.LayoutParams
                 (DefaultSize.SIZE_LINE_WIDTH, DefaultSize.CIRCLE_VIEW);

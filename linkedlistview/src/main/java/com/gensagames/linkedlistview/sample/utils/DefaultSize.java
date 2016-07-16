@@ -8,15 +8,14 @@ public class DefaultSize {
     /**
      * Simple Size for default ScaleCenterAdapter
      */
-    public static final int CIRCLE_PARENT = 60;
-    public static final int CIRCLE_VIEW = 40;
+    public static final int CIRCLE_PARENT = 55;
+    public static final int CIRCLE_VIEW = 35;
 
     /**
      * Simple Size for default PointMovingAdapter
      */
     public static final int POINT_PARENT = 80;
     public static final int POINT_VIEW = 20;
-    public static final int POINT_LINE = 5;
 
     public static final int POINT_ANIM_NIM = -75;
     public static final int POINT_ANIM_MAX = -40;
@@ -26,6 +25,13 @@ public class DefaultSize {
      * Simple Size for default SimplePointAdapter
      */
     public static final int SIMPLE_POINT_VIEW = 35;
+
+    /**
+     * Simple Size for default SimplePointAdapter
+     */
+
+    public static final int CENTER_MOTION_CIRCLE = 55;
+
     /**
      * Simple Size for default Line between View
      */

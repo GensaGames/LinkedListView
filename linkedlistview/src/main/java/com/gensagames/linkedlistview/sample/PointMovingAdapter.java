@@ -6,8 +6,6 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 
 import java.util.HashMap;
@@ -44,7 +42,7 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
     }
 
     public void addSimpleView() {
-        ViewGroup mainView = BaseDrawable.getAdapterPointView(mainContext);
+        ViewGroup mainView = BaseDrawable.getPointView(mainContext);
         mainViewList.add(mainView);
         notifyDatasetChanged();
     }
@@ -55,7 +53,7 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
     }
 
     public void addSimpleView(int index) {
-        ViewGroup mainView = BaseDrawable.getAdapterPointView(mainContext);
+        ViewGroup mainView = BaseDrawable.getPointView(mainContext);
         mainViewList.add(index, mainView);
         notifyDatasetChanged();
     }

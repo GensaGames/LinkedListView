@@ -8,6 +8,7 @@ import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.CenterMotionController;
 import com.gensagames.linkedlistview.anim.ScaleCenterController;
 import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
+import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 
 import java.util.LinkedList;
 
@@ -26,15 +27,15 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
     }
 
     public void addSimpleView () {
-        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext);
-        circleView.addView(BaseDrawable.getCustomImage(mainContext));
+        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CENTER_MOTION_CIRCLE, DefaultSize.CIRCLE_VIEW);
+        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CENTER_MOTION_CIRCLE));
         mainViewList.add(circleView);
         notifyDatasetChanged();
     }
 
     public void addSimpleView ( int index) {
-        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext);
-        circleView.addView(BaseDrawable.getCustomImage(mainContext));
+        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CENTER_MOTION_CIRCLE, DefaultSize.CIRCLE_VIEW);
+        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CENTER_MOTION_CIRCLE));
         mainViewList.add(index, circleView);
         notifyDatasetChanged();
     }
