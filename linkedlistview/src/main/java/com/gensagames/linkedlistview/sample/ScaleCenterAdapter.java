@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.LinkedList;
-
+import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.ScaleCenterController;
 import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
-import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
+
+import java.util.LinkedList;
 
 
 /**
@@ -30,19 +30,19 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
         ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CIRCLE_PARENT, DefaultSize.CIRCLE_VIEW);
         circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_VIEW));
         mainViewList.add(circleView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void addSimpleView ( int index) {
         ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CIRCLE_PARENT, DefaultSize.CIRCLE_VIEW);
         circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_VIEW));
         mainViewList.add(index, circleView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void deleteView(int index) {
         mainViewList.remove(index);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     @Override

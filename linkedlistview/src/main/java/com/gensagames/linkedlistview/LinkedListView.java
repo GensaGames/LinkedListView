@@ -34,13 +34,33 @@ public class LinkedListView extends HorizontalScrollView
         baseInit(context, Gravity.CENTER);
     }
 
+    /**
+     * Method for listening onClick action.
+     * This method may be deleted.
+     *
+     * @param v - onClick View
+     */
+
+    @Override
+    public void onClick(View v) {
+        abstractPagerAdapter.updateItemClick(v);
+    }
+
+    /**
+     * Notify our AnimationController,
+     * whenever ScrollView scroll
+     */
+
+    @Override
+    public void onScrollChanged() {
+        animationController.onScroll(getScrollX());
+    }
+
 
     /**
      * Base initializing for main AnimatedViewPager. Contains our main View holder,
      * and his parameters = Gravity. Next, we add this layout to our ScrollView.
      * Setting empty AnimationController and adding ScrollChangeListener.
-     * TODO: Add child gravity from XML AnimatedViewPager
-     *
      *
      * @param context       - main View holder LinerLayout
      * @param holderGravity - gravity for LinerLayout
@@ -59,8 +79,6 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Setting up AnimationController
-     *
-     *
      * @param animationController - AnimatedViewPager.AnimationController
      */
 
@@ -71,14 +89,12 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Setting up Adapter and call function, for updating Views
-     *
-     *
      * @param abstractPagerAdapter - AnimatedViewPager.Adapter
      */
     public void setViewPager(Adapter abstractPagerAdapter) {
         this.abstractPagerAdapter = abstractPagerAdapter;
         this.abstractPagerAdapter.setContext(this);
-        updateDatasetChanged();
+        updateDataSetChanged();
     }
 
     /**
@@ -87,8 +103,7 @@ public class LinkedListView extends HorizontalScrollView
      * for preventing duplicates.
      */
 
-    public void updateDatasetChanged() {
-
+    public void updateDataSetChanged() {
         for (int index = 0; index < abstractPagerAdapter.getObjectCount(); index++) {
             View adapterView = abstractPagerAdapter.getObjectView(index);
 
@@ -111,7 +126,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Methods for detaching view to main Holder layout on ScrollView.
-     * Called from method - notifyDatasetChanged();
+     * Called from method - notifyDataSetChanged();
      *
      * TODO(CustomViewPager): Add onScroll change, to functions below
      */
@@ -122,7 +137,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Methods for attaching view to main Holder layout on ScrollView.
-     * Called from method - notifyDatasetChanged();
+     * Called from method - notifyDataSetChanged();
      */
 
     private void bindView(View v) {
@@ -132,7 +147,7 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * Methods for attaching view by index to main Holder layout on ScrollView.
-     * Called from method - notifyDatasetChanged();
+     * Called from method - notifyDataSetChanged();
      */
 
     private void bindView(View v, int index) {
@@ -141,52 +156,23 @@ public class LinkedListView extends HorizontalScrollView
     }
 
     /**
-     * Method for listening onClick action.
-     * This method may be deleted.
-     *
-     *
-     * @param v - onClick View
-     */
-
-    @Override
-    public void onClick(View v) {
-        abstractPagerAdapter.updateItemClick(v);
-    }
-
-    /**
-     * Notify our AnimationController,
-     * whenever ScrollView scroll
-     */
-
-    @Override
-    public void onScrollChanged() {
-        animationController.onScroll(getScrollX());
-    }
-
-
-    /**
-     * Interface for main view Items to listen action
-     *
-     * Simple interface for adding click listener and callback.
-     */
-
-    public interface OnItemClickListener {
-        void onItemClick(View view);
-    }
-
-
-    /**
      * Use delegation, and call function AnimationController,
      * for programmatically scroll ScrollView to View position.
-     *
      *
      * @param viewFocus      - scroll to View
      * @param scrollDuration - animation duration
      */
 
-    public void animatePagerChangeState(View viewFocus, long scrollDuration) {
+    public void animateScrolling(View viewFocus, long scrollDuration) {
         animationController.animateScrollTo(viewFocus, scrollDuration);
     }
+
+
+    /**
+     * --------------------------------------------------------------------
+     * *************************** Nested Classes *************************
+     * --------------------------------------------------------------------
+     */
 
     /**
      * Class returning Animation
@@ -342,8 +328,8 @@ public class LinkedListView extends HorizontalScrollView
             this.linkedListView = linkedListView;
         }
 
-        public final void notifyDatasetChanged() {
-            linkedListView.updateDatasetChanged();
+        public final void notifyDataSetChanged() {
+            linkedListView.updateDataSetChanged();
         }
 
         public final void setOnItemClickListener(OnItemClickListener onPagerItemClick) {
@@ -361,4 +347,24 @@ public class LinkedListView extends HorizontalScrollView
         public abstract int getObjectCount();
     }
 
+    /**
+     * --------------------------------------------------------------------
+     * *************************** Interfaces *****************************
+     * --------------------------------------------------------------------
+     */
+
+
+    /**
+     * Interface for main view Items to listen action
+     * Simple interface for adding click listener and callback.
+     */
+
+    public interface OnItemClickListener {
+        void onItemClick(View view);
+    }
+
+
+    public interface OnScrollingStop {
+        void onScrollStop();
+    }
 }

@@ -29,18 +29,18 @@ public class SimplePointAdapter extends LinkedListView.Adapter {
     public void addSimpleView() {
         ViewGroup mainView = BaseDrawable.getNumericPoint(mainContext);
         mainViewList.add(mainView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void deleteView(int index) {
         mainViewList.remove(index);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void addSimpleView(int index) {
         ViewGroup mainView = BaseDrawable.getNumericPoint(mainContext);
         mainViewList.add(index, mainView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
 

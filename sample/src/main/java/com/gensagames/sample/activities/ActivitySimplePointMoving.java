@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gensagames.sample.ActivityMain;
-import com.gensagames.sample.R;
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
 import com.gensagames.linkedlistview.sample.SimplePointAdapter;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
+import com.gensagames.sample.ActivityMain;
+import com.gensagames.sample.R;
 import com.thedeanda.lorem.LoremIpsum;
 
 import java.util.Random;
@@ -80,7 +80,7 @@ public class ActivitySimplePointMoving extends Activity implements View.OnClickL
 
     @Override
     public void onItemClick(View view) {
-        linkedListView.animatePagerChangeState(view, DefaultSize.SCROLL_ANIM_DURATION);
+        linkedListView.animateScrolling(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
 

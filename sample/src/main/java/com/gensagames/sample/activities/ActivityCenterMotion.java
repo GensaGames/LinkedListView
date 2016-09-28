@@ -78,7 +78,7 @@ public class ActivityCenterMotion extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onItemClick(View view) {
-        linkedListView.animatePagerChangeState(view, DefaultSize.SCROLL_ANIM_DURATION);
+        linkedListView.animateScrolling(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
 

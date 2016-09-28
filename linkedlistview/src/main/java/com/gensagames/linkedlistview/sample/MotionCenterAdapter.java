@@ -30,7 +30,7 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
                 DefaultSize.CENTER_MOTION_PARENT, DefaultSize.CENTER_MOTION_CIRCLE);
         circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_PARENT));
         mainViewList.add(circleView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void addSimpleView ( int index) {
@@ -38,12 +38,12 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
                 DefaultSize.CENTER_MOTION_PARENT, DefaultSize.CENTER_MOTION_CIRCLE);
         circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_PARENT));
         mainViewList.add(index, circleView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void deleteView(int index) {
         mainViewList.remove(index);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     @Override

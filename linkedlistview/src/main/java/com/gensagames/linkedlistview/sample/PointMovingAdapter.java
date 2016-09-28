@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.gensagames.linkedlistview.LinkedListView;
+import com.gensagames.linkedlistview.anim.PointMovingController;
+import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
+import com.gensagames.linkedlistview.sample.utils.DefaultSize;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
-
-import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
-import com.gensagames.linkedlistview.LinkedListView;
-import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 
 
 /**
@@ -44,18 +44,18 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
     public void addSimpleView() {
         ViewGroup mainView = BaseDrawable.getPointView(mainContext);
         mainViewList.add(mainView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void deleteView(int index) {
         mainViewList.remove(index);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
     public void addSimpleView(int index) {
         ViewGroup mainView = BaseDrawable.getPointView(mainContext);
         mainViewList.add(index, mainView);
-        notifyDatasetChanged();
+        notifyDataSetChanged();
     }
 
 
