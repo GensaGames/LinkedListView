@@ -1,7 +1,7 @@
 package com.gensagames.sample.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.linkedlistview.anim.PointMovingController;
 import com.gensagames.linkedlistview.sample.MotionCenterAdapter;
-import com.gensagames.linkedlistview.sample.PointMovingAdapter;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
@@ -43,8 +41,10 @@ public class ActivityCenterMotion extends AppCompatActivity implements View.OnCl
      * and using for handling animation, clicks, etc.
      *
      */
+
+    CenterMotionController animationController;
+
     private void setupPointData() {
-        CenterMotionController animationController;
         linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
         animationController = new MotionCenterAdapter.AnimationController();
         pagerAdapter = new MotionCenterAdapter(this);

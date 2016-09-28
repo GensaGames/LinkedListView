@@ -94,11 +94,11 @@ public class BaseDrawable {
         return parentLayout;
     }
 
-    public  static ViewGroup getSimpleCircle(Context context, int circleSize, int sizeInside) {
+    public static ViewGroup getSimpleCircle(Context context, int sizeParent, int sizeInside) {
         final float scale = context.getResources().getDisplayMetrics().density;
         FrameLayout.LayoutParams parentParams = new FrameLayout.LayoutParams
-                ((int) (circleSize * scale + 0.5f) ,
-                        (int) (circleSize * scale + 0.5f), Gravity.CENTER);
+                ((int) (sizeParent * scale + 0.5f),
+                        (int) (sizeParent * scale + 0.5f), Gravity.CENTER);
 
         FrameLayout.LayoutParams pointParams = new FrameLayout.LayoutParams
                 ((int) (sizeInside * scale + 0.5f) ,
@@ -146,6 +146,27 @@ public class BaseDrawable {
         lineView.setBackgroundColor(Color.WHITE);
 
         parentLayout.addView(lineView);
+        return parentLayout;
+    }
+
+    public static ViewGroup getMotionView(Context context, int sizeParent, int sizeInside) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        FrameLayout.LayoutParams parentParams = new FrameLayout.LayoutParams
+                ((int) (sizeParent * scale + 0.5f),
+                        (int) (sizeParent * scale + 0.5f), Gravity.CENTER);
+
+        FrameLayout.LayoutParams insideParams = new FrameLayout.LayoutParams
+                ((int) (sizeInside * scale + 0.5f),
+                        (int) (sizeInside * scale + 0.5f), Gravity.CENTER);
+
+        FrameLayout parentLayout = new FrameLayout(context);
+        parentLayout.setLayoutParams(parentParams);
+        parentLayout.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_orange_dark));
+
+        FrameLayout insideLayout = new FrameLayout(context);
+        insideLayout.setLayoutParams(insideParams);
+        insideLayout.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
+        parentLayout.addView(insideLayout);
         return parentLayout;
     }
 

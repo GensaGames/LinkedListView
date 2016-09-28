@@ -206,6 +206,7 @@ public class LinkedListView extends HorizontalScrollView
         private int firstVisiblePosition;
         private int lastVisiblePosition;
         private int scrolledDirection;
+        private int centerViewIndex;
 
         private void setContext(LinkedListView linkedListView) {
             this.mainViewGroup = (ViewGroup) linkedListView.getChildAt(0);
@@ -213,6 +214,7 @@ public class LinkedListView extends HorizontalScrollView
 
         private void onScroll(int scrollViewValue) {
             int totalScrollScreen = scrollViewValue + getScrollViewWidth();
+            int totalScrollToCenter = scrollViewValue + (getScrollViewWidth() / 2);
             int firstVisibleIndex = 0;
             int lastVisibleIndex = 0;
             int viewsOffset = 0;
@@ -222,7 +224,13 @@ public class LinkedListView extends HorizontalScrollView
                 if (view == null) {
                     break;
                 }
-                viewsOffset += view.getWidth();
+                int viewWidth = view.getWidth();
+                viewsOffset += viewWidth;
+
+                if (Math.abs(viewsOffset - totalScrollToCenter) <= viewWidth) {
+                    this.centerViewIndex = lastVisibleIndex;
+                }
+
                 if (viewsOffset <= scrollViewValue) {
                     firstVisibleIndex++;
                 }
@@ -251,6 +259,19 @@ public class LinkedListView extends HorizontalScrollView
             return viewsOffset;
         }
 
+        /**
+         * Get updated value from getScrollToCenter
+         *
+         * @param viewOnLayout - focus view
+         * @return - new int getScrollToCenter
+         * and half of selected view element
+         */
+        @SuppressWarnings("ConstantConditions")
+        public int getTotalScrollToCenter(View viewOnLayout) {
+            if (viewOnLayout != null)
+                viewOnLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            return getScrollToCenter(viewOnLayout) + (viewOnLayout.getWidth() / 2);
+        }
 
         public int getScrollToCenter(View viewOnLayout) {
             int scrollToCenter = getScroll() + getScrollViewWidth() / 2;
@@ -276,6 +297,10 @@ public class LinkedListView extends HorizontalScrollView
                         - parent.getPaddingRight();
             }
             return scrollViewWidth;
+        }
+
+        public final int getCenterViewIndex() {
+            return centerViewIndex;
         }
 
         public final int getScrolledDirection () {

@@ -1,6 +1,5 @@
 package com.gensagames.linkedlistview.anim;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -80,7 +79,7 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
                 break;
             }
 
-            float newScale = (float) (getScrollToCenterRate(getScrollToCenter(mainView)));
+            float newScale = (float) (getScrollToCenterRate(getTotalScrollToCenter(mainView)));
             updateScaleWhileMoving(mainView, newScale);
         }
     }
@@ -91,21 +90,6 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
     }
 
     public abstract View getFocusView (ViewGroup mainView);
-
-
-    /**
-     * Get updated value from getScrollToCenter
-     *
-     * @param viewOnLayout - focus view
-     * @return - new int getScrollToCenter
-     * and half of selected view element
-     */
-    @Override
-    public int getScrollToCenter(View viewOnLayout) {
-        if (viewOnLayout != null)
-            viewOnLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        return super.getScrollToCenter(viewOnLayout) + (viewOnLayout.getMeasuredWidth() / 2);
-    }
 
     /**
      * Get updated percent scale from
@@ -118,11 +102,7 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
     public double getScrollToCenterRate(int intDifference) {
         int difference =  Math.abs(intDifference);
         double pcDifference = (double) difference / (getScrollViewWidth() / deltaScaleView);
-        double result = (maxCenterScale - pcDifference) + minSideScale;
-
-
-
-        return result;
+        return (maxCenterScale - pcDifference) + minSideScale;
     }
 
 

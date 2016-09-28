@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.linkedlistview.anim.ScaleCenterController;
 import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 
@@ -27,15 +26,17 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
     }
 
     public void addSimpleView () {
-        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CENTER_MOTION_CIRCLE, DefaultSize.CIRCLE_VIEW);
-        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CENTER_MOTION_CIRCLE));
+        ViewGroup circleView = BaseDrawable.getMotionView(mainContext,
+                DefaultSize.CENTER_MOTION_PARENT, DefaultSize.CENTER_MOTION_CIRCLE);
+        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_PARENT));
         mainViewList.add(circleView);
         notifyDatasetChanged();
     }
 
     public void addSimpleView ( int index) {
-        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CENTER_MOTION_CIRCLE, DefaultSize.CIRCLE_VIEW);
-        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CENTER_MOTION_CIRCLE));
+        ViewGroup circleView = BaseDrawable.getMotionView(mainContext,
+                DefaultSize.CENTER_MOTION_PARENT, DefaultSize.CENTER_MOTION_CIRCLE);
+        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_PARENT));
         mainViewList.add(index, circleView);
         notifyDatasetChanged();
     }
@@ -61,19 +62,6 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
     public static class AnimationController extends CenterMotionController {
 
         public AnimationController() {
-        }
-
-        public AnimationController(double maxCenterScale, double minSideScale) {
-            super(maxCenterScale, minSideScale);
-        }
-
-        public AnimationController(double maxCenterScale, double minSideScale, double deltaScaleView) {
-            super(maxCenterScale, minSideScale, deltaScaleView);
-        }
-
-        @Override
-        public View getFocusView(ViewGroup mainView) {
-            return mainView;
         }
     }
 }
