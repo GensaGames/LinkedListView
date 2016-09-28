@@ -27,11 +27,11 @@ public class DefaultSize {
     public static final int SIMPLE_POINT_VIEW = 35;
 
     /**
-     * Simple Size for default SimplePointAdapter
+     * Simple Size for default CenterMotionAdapter
      */
 
     public static final int CENTER_MOTION_PARENT = 60;
-    public static final int CENTER_MOTION_CIRCLE = 40;
+    public static final int CENTER_MOTION_CIRCLE = 50;
 
     /**
      * Simple Size for default Line between View

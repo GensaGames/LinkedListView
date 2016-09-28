@@ -161,7 +161,7 @@ public class BaseDrawable {
 
         FrameLayout parentLayout = new FrameLayout(context);
         parentLayout.setLayoutParams(parentParams);
-        parentLayout.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_orange_dark));
+        parentLayout.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_orange_light));
 
         FrameLayout insideLayout = new FrameLayout(context);
         insideLayout.setLayoutParams(insideParams);
