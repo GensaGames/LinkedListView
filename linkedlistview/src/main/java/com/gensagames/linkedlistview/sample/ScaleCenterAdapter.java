@@ -72,11 +72,6 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
         }
 
         @Override
-        public View getFocusView(ViewGroup mainView) {
-            return mainView;
-        }
-
-        @Override
         public void onScrollStop() {
             animateScrollTo(getMainViewHolder().getChildAt(getCenterViewIndex()), 300);
         }

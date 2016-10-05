@@ -120,10 +120,11 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
     public final int croppedSideView () {
         ViewGroup mainViewHolder = getMainViewHolder();
         int croppedSide = 0;
+        int scrollViewWidth = getScrollViewWidth();
         for (int i = 0; i < mainViewHolder.getChildCount(); i ++) {
             croppedSide+= mainViewHolder.getChildAt(i).getWidth();
-            if (croppedSide > getScrollViewWidth()) {
-                croppedSide = croppedSide - getScrollViewWidth();
+            if (croppedSide > scrollViewWidth) {
+                croppedSide = croppedSide - scrollViewWidth;
                 break;
             }
         }

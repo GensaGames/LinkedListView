@@ -240,11 +240,12 @@ public class LinkedListView extends HorizontalScrollView
         }
 
         private void onScroll(int scrollViewValue) {
-            int totalScrollScreen = scrollViewValue + getScrollViewWidth();
-            int totalScrollToCenter = scrollViewValue + (getScrollViewWidth() / 2);
+            int scrollViewWidth = getScrollViewWidth();
+            int totalScrollScreen = scrollViewValue + scrollViewWidth;
+            int totalScrollToCenter = scrollViewValue + (scrollViewWidth / 2);
             int firstVisibleIndex = 0;
             int lastVisibleIndex = 0;
-            int viewsOffset = 0;
+            int viewsOffset = getMainViewHolder().getPaddingStart();
 
             while (true) {
                 View view = getMainViewHolder().getChildAt(lastVisibleIndex);
@@ -266,7 +267,7 @@ public class LinkedListView extends HorizontalScrollView
                     lastVisibleIndex++;
                 } else break;
             }
-            if (totalScrollScreen < getScrollViewWidth()) {
+            if (totalScrollScreen < scrollViewWidth) {
                 firstVisibleIndex = 0;
                 lastVisibleIndex -= 1;
             }
@@ -283,7 +284,7 @@ public class LinkedListView extends HorizontalScrollView
             for (int i = 0; i < getMainViewHolder().indexOfChild(view); i++) {
                 viewsOffset += getMainViewHolder().getChildAt(i).getWidth();
             }
-            return viewsOffset;
+            return viewsOffset + getMainViewHolder().getPaddingStart();
         }
 
         /**
@@ -317,12 +318,10 @@ public class LinkedListView extends HorizontalScrollView
         }
 
         public final int getScrollViewWidth() {
-            if (scrollViewWidth == 0) {
-                View parent = ((HorizontalScrollView)
-                        (getMainViewHolder().getParent()));
-                scrollViewWidth = parent.getWidth() - parent.getPaddingLeft()
-                        - parent.getPaddingRight();
-            }
+            View parent = ((HorizontalScrollView)
+                    (getMainViewHolder().getParent()));
+            scrollViewWidth = parent.getWidth() - parent.getPaddingStart()
+                    - parent.getPaddingEnd();
             return scrollViewWidth;
         }
 

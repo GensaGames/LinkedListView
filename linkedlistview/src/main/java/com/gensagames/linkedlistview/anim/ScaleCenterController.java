@@ -1,6 +1,5 @@
 package com.gensagames.linkedlistview.anim;
 
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.gensagames.linkedlistview.LinkedListView;
@@ -72,6 +71,7 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
     public void onScrollAction() {
         int firstVisibleView = getFirstVisiblePosition();
         int lastVisibleView = getLastVisiblePosition();
+        int scrollViewWidth = getScrollViewWidth();
 
         for (int i = firstVisibleView; i <= lastVisibleView; i++) {
             ViewGroup mainView = (ViewGroup) getMainViewHolder().getChildAt(i);
@@ -79,29 +79,23 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
                 break;
             }
 
-            float newScale = (float) (getScrollToCenterRate(getTotalScrollToCenter(mainView)));
-            updateScaleWhileMoving(mainView, newScale);
+            float newScale = (float) (getScrollToCenterRate(getTotalScrollToCenter(mainView), scrollViewWidth));
+            mainView.setScaleX(newScale);
+            mainView.setScaleY(newScale);
         }
     }
 
-    public void updateScaleWhileMoving(ViewGroup mainView, float updatedScale) {
-        getFocusView(mainView).setScaleX(updatedScale);
-        getFocusView(mainView).setScaleY(updatedScale);
-    }
-
-    public abstract View getFocusView (ViewGroup mainView);
 
     /**
      * Get updated percent scale from
      * center difference
      *
-     * @param intDifference - int difference to center
+     * @param difference - int difference to center
      * @return - invoke all values, to get
      * updated percent value of base view scale.
      */
-    public double getScrollToCenterRate(int intDifference) {
-        int difference =  Math.abs(intDifference);
-        double pcDifference = (double) difference / (getScrollViewWidth() / deltaScaleView);
+    public double getScrollToCenterRate(int difference, int scrollViewWidth) {
+        double pcDifference = (double) Math.abs(difference) / (scrollViewWidth / deltaScaleView);
         return (maxCenterScale - pcDifference) + minSideScale;
     }
 
