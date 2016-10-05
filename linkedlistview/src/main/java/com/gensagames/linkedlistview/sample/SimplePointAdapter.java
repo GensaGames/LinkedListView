@@ -129,6 +129,16 @@ public class SimplePointAdapter extends LinkedListView.Adapter {
             }
             return null;
         }
+
+        @Override
+        public void onScrollStop() {
+
+        }
+
+        @Override
+        public void onScrollStart() {
+
+        }
     }
 
 }

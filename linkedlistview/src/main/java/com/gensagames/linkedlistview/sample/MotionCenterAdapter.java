@@ -63,5 +63,15 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
 
         public AnimationController() {
         }
+
+        @Override
+        public void onScrollStop() {
+
+        }
+
+        @Override
+        public void onScrollStart() {
+
+        }
     }
 }

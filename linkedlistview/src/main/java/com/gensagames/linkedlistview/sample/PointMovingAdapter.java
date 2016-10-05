@@ -138,6 +138,16 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
             }
             return parentView;
         }
+
+        @Override
+        public void onScrollStop() {
+
+        }
+
+        @Override
+        public void onScrollStart() {
+
+        }
     }
 
 }

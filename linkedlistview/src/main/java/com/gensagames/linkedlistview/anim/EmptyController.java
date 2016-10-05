@@ -13,4 +13,14 @@ public class EmptyController extends LinkedListView.AnimationController {
     public void onScrollAction() {
 
     }
+
+    @Override
+    public void onScrollStop() {
+
+    }
+
+    @Override
+    public void onScrollStart() {
+
+    }
 }

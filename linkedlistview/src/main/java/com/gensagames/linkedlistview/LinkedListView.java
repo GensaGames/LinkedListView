@@ -4,7 +4,9 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.HorizontalScrollView;
@@ -23,6 +25,7 @@ public class LinkedListView extends HorizontalScrollView
     private Adapter abstractPagerAdapter;
     private LinearLayout linearMainHolder;
     private AnimationController animationController;
+    private ScrollListenState scrollListenState;
 
     public LinkedListView(Context context) {
         super(context);
@@ -56,6 +59,11 @@ public class LinkedListView extends HorizontalScrollView
         animationController.onScroll(getScrollX());
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        scrollListenState.onListenTouch(ev);
+        return super.onTouchEvent(ev);
+    }
 
     /**
      * Base initializing for main AnimatedViewPager. Contains our main View holder,
@@ -65,17 +73,19 @@ public class LinkedListView extends HorizontalScrollView
      * @param context       - main View holder LinerLayout
      * @param holderGravity - gravity for LinerLayout
      */
-    public void baseInit(Context context, int holderGravity) {
+    private void baseInit(Context context, int holderGravity) {
         linearMainHolder = new LinearLayout(context);
         linearMainHolder.setClipChildren(false);
         linearMainHolder.setClipToPadding(false);
         linearMainHolder.setGravity(holderGravity);
         addView(linearMainHolder);
 
+        scrollListenState = new ScrollListenState();
         animationController = new EmptyController();
         animationController.setContext(this);
         getViewTreeObserver().addOnScrollChangedListener(this);
     }
+
 
     /**
      * Setting up AnimationController
@@ -116,7 +126,6 @@ public class LinkedListView extends HorizontalScrollView
                 bindView(adapterView, index);
             }
         }
-
         for (int increaseCount = linearMainHolder.getChildCount() - 1;
              increaseCount >= abstractPagerAdapter.getObjectCount(); increaseCount--) {
             unBindView(linearMainHolder.getChildAt(increaseCount));
@@ -170,9 +179,41 @@ public class LinkedListView extends HorizontalScrollView
 
     /**
      * --------------------------------------------------------------------
-     * *************************** Nested Classes *************************
+     * *************************** Classes *************************
      * --------------------------------------------------------------------
      */
+
+
+    private class ScrollListenState implements Runnable {
+
+        private boolean startScrolling;
+        private int initialPosition;
+
+        public void onListenTouch(MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                startScrolling = false;
+                initialPosition = getScrollX();
+                postDelayed(this, ViewConfiguration.getTapTimeout());
+            }
+            if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                if (!startScrolling) {
+                    startScrolling = true;
+                    animationController.onScrollStart();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            int newPosition = getScrollX();
+            if (initialPosition - newPosition == 0) {
+                animationController.onScrollStop();
+            } else {
+                initialPosition = getScrollX();
+                postDelayed(this, ViewConfiguration.getTapTimeout());
+            }
+        }
+    }
 
     /**
      * Class returning Animation
@@ -182,7 +223,7 @@ public class LinkedListView extends HorizontalScrollView
      * TODO(Doc): Update Doc about adapter methods.
      */
 
-    public static abstract class AnimationController {
+    public static abstract class AnimationController implements OnScrollingAction {
         public static final String ANIM_LOG = "AnimController";
         public static final String ANIM_PARAM_SCROLL_X = "scrollX";
 
@@ -364,7 +405,9 @@ public class LinkedListView extends HorizontalScrollView
     }
 
 
-    public interface OnScrollingStop {
+    public interface OnScrollingAction {
         void onScrollStop();
+
+        void onScrollStart();
     }
 }
