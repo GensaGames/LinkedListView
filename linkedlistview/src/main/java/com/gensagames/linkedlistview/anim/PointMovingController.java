@@ -1,8 +1,6 @@
 package com.gensagames.linkedlistview.anim;
 
-import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.gensagames.linkedlistview.LinkedListView;
@@ -31,7 +29,7 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
      * @return - delta of point translate X
      */
     public int getDeltaPointView (ViewGroup viewGroup, int gravity) {
-        int delta = (viewGroup.getWidth() / 2) - (getFocusView(viewGroup).getWidth() / 2) - 1;
+        int delta = (viewGroup.getWidth() / 2) - (viewGroup.getWidth() / 2) - 1;
 
         if (gravity == Gravity.START) {
             return -delta;
@@ -84,7 +82,6 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
         }
         updateViewsTranslatedX(lastViewParent, translateEndX);
         animateMovingOut(lastViewParent);
-        Log.d(LinkedListView.AnimationController.ANIM_LOG, "-------------------------------");
     }
 
 
@@ -105,7 +102,6 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
             int scrolledToCenter = getScrollToCenter(parentView);
             float translated = calculateScrollTranslated(scrolledToCenter);
 
-            Log.d(ANIM_LOG, "->>> Scaled value: " + translated);
             updateViewsTranslatedX(parentView, (int)translated);
             animateMovingIn(parentView);
         }
@@ -145,9 +141,9 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
         ViewGroup mainView = (ViewGroup) getMainViewHolder().getChildAt(0);
         int updatedCenterDifference = centerDifference + mainView.getWidth() / 2;
 
-        float maxAvailableTranslate =  (mainView.getWidth() /2) - getFocusView(mainView).getWidth() / 2;
+        float maxAvailableTranslate = (mainView.getWidth() / 2) - mainView.getWidth() / 2;
         float maxDifferenceToCenter = getScrollViewWidth() / 2 - (mainView.getWidth() / 2)
-                - getFocusView(mainView).getWidth();
+                - mainView.getWidth();
 
         double scrollPercent = (double) updatedCenterDifference / maxDifferenceToCenter;
         scrollPercent = scrollPercent > 1.0 ? 1.0 : scrollPercent;
@@ -157,19 +153,11 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
 
 
     public void updateViewsTranslatedX (ViewGroup mainView, int newTranslationX) {
-        getFocusView(mainView).setTranslationX(newTranslationX);
+        mainView.setTranslationX(newTranslationX);
     }
 
     public abstract void animateMovingIn(ViewGroup mainView);
     public abstract void animateMovingOut(ViewGroup mainView);
 
-    /**
-     * This method for any your realization of
-     * this controller. Using parent ViewGroup, for finding
-     * focus view in layout, in our case - Circle Point
-     * @param parentView - main view in list
-     * @return view for manipulation
-     */
-    public abstract View getFocusView(ViewGroup parentView);
 
 }

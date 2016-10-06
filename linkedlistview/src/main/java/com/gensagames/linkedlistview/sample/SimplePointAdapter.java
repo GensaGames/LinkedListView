@@ -3,7 +3,6 @@ package com.gensagames.linkedlistview.sample;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
@@ -67,7 +66,6 @@ public class SimplePointAdapter extends LinkedListView.Adapter {
         @Override
         public void updateViewsTranslatedX(ViewGroup mainView, int newTranslationX) {
             super.updateViewsTranslatedX(mainView, newTranslationX);
-            getFocusViewText(mainView).setTranslationX(newTranslationX);
 
             if (getFocusViewText(mainView).getText().toString().equals("")) {
                 getFocusViewText(mainView).setText(String.valueOf(getMainViewHolder()
@@ -115,16 +113,6 @@ public class SimplePointAdapter extends LinkedListView.Adapter {
             for (int i = 0; i < parentView.getChildCount(); i++) {
                 if (parentView.getChildAt(i) instanceof TextView) {
                     return (TextView) parentView.getChildAt(i);
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public View getFocusView(ViewGroup parentView) {
-            for (int i = 0; i < parentView.getChildCount(); i++) {
-                if (parentView.getChildAt(i) instanceof ImageView) {
-                    return parentView.getChildAt(i);
                 }
             }
             return null;

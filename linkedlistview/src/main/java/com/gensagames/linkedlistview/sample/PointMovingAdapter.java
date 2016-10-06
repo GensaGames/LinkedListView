@@ -6,7 +6,6 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
@@ -86,10 +85,6 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
         public  int getRandomInt(int min, int max){
             return random.nextInt(max - min + 1) + min;
         }
-        @Override
-        public void onScrollAction() {
-            super.onScrollAction();
-        }
 
         @Override
         public void animateMovingIn(final ViewGroup mainView) {
@@ -103,8 +98,8 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
             int newPositionY = (int) ((getRandomInt(DefaultSize.POINT_ANIM_NIM, DefaultSize.POINT_ANIM_MAX)) * scale + 0.5f);
             AnimatorSet animatorSet = new AnimatorSet();
             PropertyValuesHolder movingUp = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y,
-                    getFocusView(mainView).getTranslationY(), newPositionY);
-            ObjectAnimator animatorView = ObjectAnimator.ofPropertyValuesHolder(getFocusView(mainView), movingUp);
+                    mainView.getTranslationY(), newPositionY);
+            ObjectAnimator animatorView = ObjectAnimator.ofPropertyValuesHolder(mainView, movingUp);
             animatorView.setDuration(DefaultSize.POINT_ANIM_TIME);
             animatorSet.play(animatorView);
             animatorSet.start();
@@ -120,23 +115,13 @@ public class PointMovingAdapter extends LinkedListView.Adapter {
             }
             AnimatorSet animatorSet = new AnimatorSet();
             PropertyValuesHolder movingUp = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y,
-                    getFocusView(mainView).getTranslationY(), 0);
+                    mainView.getTranslationY(), 0);
 
-            ObjectAnimator animatorView = ObjectAnimator.ofPropertyValuesHolder(getFocusView(mainView), movingUp);
+            ObjectAnimator animatorView = ObjectAnimator.ofPropertyValuesHolder(mainView, movingUp);
             animatorView.setDuration(DefaultSize.POINT_ANIM_TIME);
             animatorSet.play(animatorView);
             animatorSet.start();
             animatorMovingOutMap.put(mainView, animatorSet);
-        }
-
-        @Override
-        public View getFocusView(ViewGroup parentView) {
-            for (int i = 0; i < parentView.getChildCount(); i++) {
-                if (parentView.getChildAt(i) instanceof ImageView) {
-                    return parentView.getChildAt(i);
-                }
-            }
-            return parentView;
         }
 
         @Override
