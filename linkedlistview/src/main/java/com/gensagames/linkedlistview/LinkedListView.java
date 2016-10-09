@@ -29,12 +29,12 @@ public class LinkedListView extends HorizontalScrollView
 
     public LinkedListView(Context context) {
         super(context);
-        baseInit(context, Gravity.CENTER);
+        onCreate(context, Gravity.CENTER);
     }
 
     public LinkedListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        baseInit(context, Gravity.CENTER);
+        onCreate(context, Gravity.CENTER);
     }
 
     /**
@@ -73,14 +73,14 @@ public class LinkedListView extends HorizontalScrollView
      * @param context       - main View holder LinerLayout
      * @param holderGravity - gravity for LinerLayout
      */
-    private void baseInit(Context context, int holderGravity) {
+    private void onCreate(Context context, int holderGravity) {
+        scrollListenState = new ScrollListenState();
         linearMainHolder = new LinearLayout(context);
         linearMainHolder.setClipChildren(false);
         linearMainHolder.setClipToPadding(false);
         linearMainHolder.setGravity(holderGravity);
         addView(linearMainHolder);
 
-        scrollListenState = new ScrollListenState();
         animationController = new EmptyController();
         animationController.setContext(this);
         getViewTreeObserver().addOnScrollChangedListener(this);

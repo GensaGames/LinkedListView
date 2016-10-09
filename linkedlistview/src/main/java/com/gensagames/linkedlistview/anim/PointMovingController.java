@@ -54,6 +54,10 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
         ViewGroup lastViewParent = (ViewGroup) getMainViewHolder()
                 .getChildAt(getLastVisiblePosition());
 
+        if (getScroll() - getMainViewHolder().getPaddingStart() <= 0) {
+            return;
+        }
+
         if (firstViewParent == null || lastViewParent == null) {
             return;
         }
