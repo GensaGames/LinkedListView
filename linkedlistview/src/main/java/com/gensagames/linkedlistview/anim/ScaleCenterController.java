@@ -9,7 +9,7 @@ import com.gensagames.linkedlistview.LinkedListView;
  * Created by Genka on 30.03.2016.
  * GensaGames
  */
-public abstract class ScaleCenterController extends LinkedListView.AnimationController {
+public class ScaleCenterController extends LinkedListView.AnimationController {
 
     /**
      * Max scale which will be
@@ -26,6 +26,13 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
      * values when scrolling (Percent)
      */
     private double deltaScaleView;
+
+
+    /**
+     * Configurable from methods values
+     */
+    private int selectableScrollDuration = 300;
+    private boolean isSelectableScroll;
 
     /**
      * Base constructor for
@@ -83,6 +90,26 @@ public abstract class ScaleCenterController extends LinkedListView.AnimationCont
             mainView.setScaleX(newScale);
             mainView.setScaleY(newScale);
         }
+    }
+
+    @Override
+    public void onScrollStart() {
+
+    }
+
+    @Override
+    public void onScrollStop() {
+        if (isSelectableScroll) {
+            animateScrollTo(getMainViewHolder().getChildAt(getCenterViewIndex()), selectableScrollDuration);
+        }
+    }
+
+    public void setSelectableScroll(boolean isSelectableScroll) {
+        this.isSelectableScroll = isSelectableScroll;
+    }
+
+    public void setSelectableScrollDuration(int selectableScrollDuration) {
+        this.selectableScrollDuration = selectableScrollDuration;
     }
 
 

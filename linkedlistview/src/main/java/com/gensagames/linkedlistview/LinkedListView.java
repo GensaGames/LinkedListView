@@ -224,6 +224,7 @@ public class LinkedListView extends HorizontalScrollView
         private int lastVisiblePosition;
         private int scrolledDirection;
         private int centerViewIndex;
+        private boolean isCenterStarting;
 
         private void setContext(LinkedListView linkedListView) {
             this.mainViewGroup = (ViewGroup) linkedListView.getChildAt(0);

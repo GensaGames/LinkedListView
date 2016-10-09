@@ -51,7 +51,8 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         pagerAdapter = new ScaleCenterAdapter(this);
         linkedListView.setViewPager(pagerAdapter);
 
-        animationController = new ScaleCenterAdapter.AnimationController(1.5, 0.5);
+        animationController = new ScaleCenterController(1.5, 0.5);
+        animationController.setSelectableScroll(true);
         linkedListView.setAnimationController(animationController);
         pagerAdapter.setOnItemClickListener(this);
     }

@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gensagames.linkedlistview.LinkedListView;
-import com.gensagames.linkedlistview.anim.ScaleCenterController;
 import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 
@@ -58,27 +57,4 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
         return mainViewList.size();
     }
 
-    public static class AnimationController extends ScaleCenterController {
-
-        public AnimationController() {
-        }
-
-        public AnimationController(double maxCenterScale, double minSideScale) {
-            super(maxCenterScale, minSideScale);
-        }
-
-        public AnimationController(double maxCenterScale, double minSideScale, double deltaScaleView) {
-            super(maxCenterScale, minSideScale, deltaScaleView);
-        }
-
-        @Override
-        public void onScrollStop() {
-            animateScrollTo(getMainViewHolder().getChildAt(getCenterViewIndex()), 300);
-        }
-
-        @Override
-        public void onScrollStart() {
-
-        }
-    }
 }
