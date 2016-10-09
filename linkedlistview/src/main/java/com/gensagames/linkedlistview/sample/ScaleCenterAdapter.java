@@ -48,7 +48,6 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
         public View getObjectView(int position) {
         if (position < mainViewList.size())
             return mainViewList.get(position);
-
         return null;
     }
 

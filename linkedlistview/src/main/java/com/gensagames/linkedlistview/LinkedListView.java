@@ -224,10 +224,10 @@ public class LinkedListView extends HorizontalScrollView
         private int lastVisiblePosition;
         private int scrolledDirection;
         private int centerViewIndex;
-        private boolean isCenterStarting;
 
         private void setContext(LinkedListView linkedListView) {
             this.mainViewGroup = (ViewGroup) linkedListView.getChildAt(0);
+            onScroll(linkedListView.getScrollX());
         }
 
         private void onScroll(int scrollViewValue) {
@@ -270,7 +270,7 @@ public class LinkedListView extends HorizontalScrollView
             onScrollAction();
         }
 
-        public final int getScrollToView(View view) {
+        public int getScrollToView(View view) {
             int viewsOffset = 0;
             for (int i = 0; i < getMainViewHolder().indexOfChild(view); i++) {
                 viewsOffset += getMainViewHolder().getChildAt(i).getWidth();
@@ -332,6 +332,10 @@ public class LinkedListView extends HorizontalScrollView
         }
 
         public final ViewGroup getMainViewHolder() {
+            if (mainViewGroup == null) {
+                throw new NullPointerException(AnimationController.class.getSimpleName()
+                        + " isn't attached to " + LinkedListView.class.getSimpleName());
+            }
             return mainViewGroup;
         }
 
