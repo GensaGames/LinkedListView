@@ -40,7 +40,6 @@ public class LinkedListView extends HorizontalScrollView
     /**
      * Method for listening onClick action.
      * This method may be deleted.
-     *
      * @param v - onClick View
      */
 
@@ -105,6 +104,10 @@ public class LinkedListView extends HorizontalScrollView
         this.abstractPagerAdapter = abstractPagerAdapter;
         this.abstractPagerAdapter.setContext(this);
         updateDataSetChanged();
+    }
+
+    public ViewGroup getMainViewHolder() {
+        return linearMainHolder;
     }
 
     /**

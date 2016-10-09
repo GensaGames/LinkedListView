@@ -41,6 +41,13 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         setupCircleData();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        int sidePadding = linkedListView.getWidth() / 2
+                - linkedListView.getPaddingStart() - linkedListView.getPaddingEnd();
+        linkedListView.getMainViewHolder().setPadding(sidePadding, 0, sidePadding, 0);
+    }
 
     /**
      * Testing work with LinkedListView, sample element initializing
@@ -48,13 +55,13 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
      *
      */
     private void setupCircleData() {
-        pagerAdapter = new ScaleCenterAdapter(this);
-        linkedListView.setViewPager(pagerAdapter);
-
         animationController = new ScaleCenterController(1.5, 0.5);
         animationController.setSelectableScroll(true);
         linkedListView.setAnimationController(animationController);
+
+        pagerAdapter = new ScaleCenterAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
+        linkedListView.setViewPager(pagerAdapter);
     }
 
     /**
