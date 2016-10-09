@@ -164,17 +164,7 @@ public class LinkedListView extends HorizontalScrollView
         v.setOnClickListener(this);
     }
 
-    /**
-     * Use delegation, and call function AnimationController,
-     * for programmatically scroll ScrollView to View position.
-     *
-     * @param viewFocus      - scroll to View
-     * @param scrollDuration - animation duration
-     */
 
-    public void animateScrolling(View viewFocus, long scrollDuration) {
-        animationController.animateScrollTo(viewFocus, scrollDuration);
-    }
 
 
     /**
@@ -307,6 +297,13 @@ public class LinkedListView extends HorizontalScrollView
             return scrollToView - scrollToCenter;
         }
 
+        /**
+         * Use delegation, and call function AnimationController,
+         * for programmatically scroll ScrollView to View position.
+         *
+         * @param viewFocus      - scroll to View
+         * @param scrollDuration - animation duration
+         */
         public void animateScrollTo(View viewFocus, long scrollDuration) {
             int scrollToView = getScrollToView(viewFocus) + viewFocus.getWidth() / 2;
             int scrollSize = scrollToView - getScrollViewWidth() / 2;
@@ -406,7 +403,6 @@ public class LinkedListView extends HorizontalScrollView
 
     public interface OnScrollingAction {
         void onScrollStop();
-
         void onScrollStart();
     }
 }

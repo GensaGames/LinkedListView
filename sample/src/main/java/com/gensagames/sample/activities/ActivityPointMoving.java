@@ -28,6 +28,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
 
     private LinkedListView linkedListView;
     private PointMovingAdapter pagerAdapter;
+    private PointMovingController animationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,6 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
      *
      */
     private void setupPointData() {
-        PointMovingController animationController;
         linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
         animationController = new PointMovingAdapter.AnimationController();
         pagerAdapter = new PointMovingAdapter(this);
@@ -80,7 +80,7 @@ public class ActivityPointMoving extends Activity implements View.OnClickListene
 
     @Override
     public void onItemClick(View view) {
-        linkedListView.animateScrolling(view, DefaultSize.SCROLL_ANIM_DURATION);
+        animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
 

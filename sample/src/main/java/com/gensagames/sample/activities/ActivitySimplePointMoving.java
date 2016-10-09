@@ -28,6 +28,7 @@ public class ActivitySimplePointMoving extends Activity implements View.OnClickL
 
     private LinkedListView linkedListView;
     private SimplePointAdapter pagerAdapter;
+    private PointMovingController animationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,6 @@ public class ActivitySimplePointMoving extends Activity implements View.OnClickL
      */
 
     private void setupPointData() {
-        PointMovingController animationController;
         linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
         animationController = new SimplePointAdapter.AnimationController();
         pagerAdapter = new SimplePointAdapter(this);
@@ -80,7 +80,7 @@ public class ActivitySimplePointMoving extends Activity implements View.OnClickL
 
     @Override
     public void onItemClick(View view) {
-        linkedListView.animateScrolling(view, DefaultSize.SCROLL_ANIM_DURATION);
+        animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
 

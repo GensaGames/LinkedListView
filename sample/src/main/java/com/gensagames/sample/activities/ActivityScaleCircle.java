@@ -29,6 +29,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
 
     private LinkedListView linkedListView;
     private ScaleCenterAdapter pagerAdapter;
+    private ScaleCenterController animationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         pagerAdapter = new ScaleCenterAdapter(this);
         linkedListView.setViewPager(pagerAdapter);
 
-        ScaleCenterController animationController = new ScaleCenterAdapter.AnimationController(1.5, 0.5);
+        animationController = new ScaleCenterAdapter.AnimationController(1.5, 0.5);
         linkedListView.setAnimationController(animationController);
         pagerAdapter.setOnItemClickListener(this);
     }
@@ -79,7 +80,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
 
     @Override
     public void onItemClick(View view) {
-        linkedListView.animateScrolling(view, DefaultSize.SCROLL_ANIM_DURATION);
+        animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
 
