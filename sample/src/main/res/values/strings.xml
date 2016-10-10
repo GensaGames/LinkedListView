@@ -4,5 +4,17 @@
     <string name="grid_item_point">Point Moving \n </string>
     <string name="grid_item_simple_point">Point Moving - Sample</string>
     <string name="grid_item_center_motion">Motion Center</string>
+
     <string name="linkedlistview">LinkedListView</string>
+
+
+    <string name="object_linked_mainholder_description">This is example of getting Main View Holder in
+        LinkedListView and customization. In our case changing start paddings for
+        adding from center. </string>
+    <string name="object_linked_mainholder_checkbox">getMainViewHolder().setPadding(?)</string>
+
+
+    <string name="object_scalecenter_selectable_description">Just simple example of scroll action in
+        LinkedListView.AnimationController. Waiting for onScrollStop and after scrolling to center view.  </string>
+    <string name="object_scalecenter_selectable_checkbox">setSelectableScroll(?)</string>
 </resources>

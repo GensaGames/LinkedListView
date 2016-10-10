@@ -40,8 +40,10 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
     }
 
     public void deleteView(int index) {
-        mainViewList.remove(index);
-        notifyDataSetChanged();
+        if (index >= 0 && !mainViewList.isEmpty()) {
+            mainViewList.remove(index);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

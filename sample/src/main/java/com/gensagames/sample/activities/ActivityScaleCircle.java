@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
@@ -15,9 +16,6 @@ import com.gensagames.linkedlistview.sample.ScaleCenterAdapter;
 import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
-import com.thedeanda.lorem.LoremIpsum;
-
-import java.util.Random;
 
 /**
  * Created by Genka on 09.05.2016.
@@ -27,6 +25,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
                 LinkedListView.OnItemClickListener{
 
 
+    private LinearLayout mainLayoutSpace;
     private LinkedListView linkedListView;
     private ScaleCenterAdapter pagerAdapter;
     private ScaleCenterController animationController;
@@ -37,16 +36,12 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_sample_linkedlistview);
 
         bindActivity();
-        loadBaseStubs();
         setupCircleData();
-    }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        int sidePadding = linkedListView.getWidth() / 2
-                - linkedListView.getPaddingStart() - linkedListView.getPaddingEnd();
-        linkedListView.getMainViewHolder().setPadding(sidePadding, 0, sidePadding, 0);
+
+        linkedListViewSetting();
+        scaleCenterControllerSetting();
+        requestButtonsToFront();
     }
 
     /**
@@ -56,7 +51,6 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
      */
     private void setupCircleData() {
         animationController = new ScaleCenterController(1.5, 0.5);
-        animationController.setSelectableScroll(true);
         linkedListView.setAnimationController(animationController);
 
         pagerAdapter = new ScaleCenterAdapter(this);
@@ -80,9 +74,6 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
                 ActivityMain.showToast(getApplicationContext(), "Remove last view");
                 pagerAdapter.deleteView(pagerAdapter.getObjectCount() - 1);
                 break;
-            case R.id.activity_fab_add_objects2:
-                pagerAdapter.addSimpleView(2);
-                break;
         }
     }
 
@@ -101,38 +92,62 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
      */
 
     private void bindActivity() {
+        mainLayoutSpace = (LinearLayout) findViewById(R.id.layout_main_holder);
         linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
         findViewById(R.id.activity_fab_add_objects).setOnClickListener(this);
         findViewById(R.id.activity_fab_add_objects1).setOnClickListener(this);
-        findViewById(R.id.activity_fab_add_objects2).setOnClickListener(this);
     }
 
-    private void loadBaseStubs () {
-        LinearLayout mainViewHolder = (LinearLayout) findViewById(R.id.layout_main_holder);
+    private void linkedListViewSetting() {
         LayoutInflater ltInflater = getLayoutInflater();
 
-        for (int i = 0; i < 6; i++) {
-            ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.base_list_item, null, false);
-            TextView textViewName = (TextView)
-                    viewGroup.findViewById(R.id.adapter_main_name);
-            TextView textViewSecondaryName = (TextView)
-                    viewGroup.findViewById(R.id.adapter_secondary_name);
-            RatingBar ratingBar = (RatingBar)
-                    viewGroup.findViewById(R.id.adapter_rating_bar);
-            TextView textViewRating = (TextView)
-                    viewGroup.findViewById(R.id.adapter_rating);
-            TextView textViewDownloads = (TextView)
-                    viewGroup.findViewById(R.id.adapter_downloads);
+        ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.object_config, mainLayoutSpace, false);
+        ((TextView) viewGroup.findViewById(R.id.object_text_header_first))
+                .setText(LinkedListView.class.getSimpleName());
+        ((TextView) viewGroup.findViewById(R.id.object_text_description_first))
+                .setText(getString(R.string.object_linked_mainholder_description));
+        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
+                .setText(getString(R.string.object_linked_mainholder_checkbox));
+        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
+                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        int sidePadding = isChecked ? linkedListView.getWidth() / 2
+                                - linkedListView.getPaddingStart() - linkedListView.getPaddingEnd() : 0;
+                        linkedListView.getMainViewHolder().setPadding(sidePadding, 0, sidePadding, 0);
+                        linkedListView.onScrollChanged();
+                    }
+                });
 
-            textViewName.setText(LoremIpsum.getInstance().getTitle(200));
-            textViewSecondaryName.setText(LoremIpsum.getInstance().getName());
-            ratingBar.setRating((float) new Random().nextInt(5));
-            textViewRating.setText(String.valueOf(new Random().nextInt(5)));
-            textViewDownloads.setText(String.valueOf(new Random().nextInt(5000)));
-            mainViewHolder.addView(viewGroup);
-        }
+        mainLayoutSpace.addView(viewGroup);
+
+    }
+
+    private void scaleCenterControllerSetting() {
+        LayoutInflater ltInflater = getLayoutInflater();
+
+        ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.object_config, mainLayoutSpace, false);
+        ((TextView) viewGroup.findViewById(R.id.object_text_header_first))
+                .setText(ScaleCenterController.class.getSimpleName());
+        ((TextView) viewGroup.findViewById(R.id.object_text_description_first))
+                .setText(getString(R.string.object_scalecenter_selectable_description));
+        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
+                .setText(getString(R.string.object_scalecenter_selectable_checkbox));
+        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
+                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        animationController.setSelectableScroll(isChecked);
+                        linkedListView.onScrollChanged();
+                    }
+                });
+
+        mainLayoutSpace.addView(viewGroup);
+
+    }
+
+    private void requestButtonsToFront() {
         findViewById(R.id.activity_fab_add_objects).bringToFront();
         findViewById(R.id.activity_fab_add_objects1).bringToFront();
-        findViewById(R.id.activity_fab_add_objects2).bringToFront();
     }
 }

@@ -65,17 +65,6 @@
         android:tint="@android:color/white"
         app:layout_anchor="@+id/activity.linear.custom.pager"
         app:layout_anchorGravity="bottom|left" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity.fab.add.objects2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:src="@android:drawable/ic_dialog_alert"
-        android:tint="@android:color/white"
-        app:layout_anchor="@+id/activity.linear.custom.pager"
-        app:layout_anchorGravity="bottom|left" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
