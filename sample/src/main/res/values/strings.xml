@@ -7,14 +7,18 @@
 
     <string name="linkedlistview">LinkedListView</string>
 
-
+    <!-- ========================================================= -->
     <string name="object_linked_mainholder_description">This is example of getting Main View Holder in
         LinkedListView and customization. In our case changing start paddings for
         adding from center. </string>
     <string name="object_linked_mainholder_checkbox">getMainViewHolder().setPadding(?)</string>
 
+    <!-- ========================================================= -->
 
     <string name="object_scalecenter_selectable_description">Just simple example of scroll action in
         LinkedListView.AnimationController. Waiting for onScrollStop and after scrolling to center view.  </string>
     <string name="object_scalecenter_selectable_checkbox">setSelectableScroll(?)</string>
+    <string name="object_scalecenter_seekbar_description">Max scale which will apply to any center views
+        during scrolling. Setting in float and represent value in percentage. Should be components
+        with other settings! </string>
 </resources>

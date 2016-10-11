@@ -17,6 +17,8 @@ import com.gensagames.linkedlistview.sample.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+
 /**
  * Created by Genka on 09.05.2016.
  * GensaGames
@@ -118,15 +120,18 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
                         linkedListView.onScrollChanged();
                     }
                 });
-
         mainLayoutSpace.addView(viewGroup);
 
     }
 
     private void scaleCenterControllerSetting() {
         LayoutInflater ltInflater = getLayoutInflater();
-
         ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.object_config, mainLayoutSpace, false);
+        ViewGroup mainHolder = (LinearLayout) viewGroup.findViewById(R.id.object_main_layout);
+
+        /**
+         * ------------------------------------
+         */
         ((TextView) viewGroup.findViewById(R.id.object_text_header_first))
                 .setText(ScaleCenterController.class.getSimpleName());
         ((TextView) viewGroup.findViewById(R.id.object_text_description_first))
@@ -142,8 +147,36 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
                     }
                 });
 
-        mainLayoutSpace.addView(viewGroup);
+        /**
+         * -------------------- Center Max Scale----------------
+         */
 
+        ViewGroup seekBarGroup1 = (ViewGroup) ltInflater.inflate(R.layout.object_config_seekbar,
+                mainLayoutSpace, false);
+        ((TextView) seekBarGroup1.findViewById(R.id.object_seekbar_description))
+                .setText(getString(R.string.object_scalecenter_seekbar_description));
+        DiscreteSeekBar seekBar = (DiscreteSeekBar) seekBarGroup1.findViewById(R.id.object_seekbar);
+        seekBar.setMin(100);
+        seekBar.setMax(200);
+        seekBar.setProgress(150);
+        seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+            @Override
+            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+                animationController.setMaxCenterScale(((double) value / 100));
+            }
+
+            @Override
+            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+            }
+        });
+        mainHolder.addView(seekBarGroup1);
+
+
+        mainLayoutSpace.addView(viewGroup);
     }
 
     private void requestButtonsToFront() {

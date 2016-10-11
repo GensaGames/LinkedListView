@@ -106,12 +106,27 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
 
     public void setSelectableScroll(boolean isSelectableScroll) {
         this.isSelectableScroll = isSelectableScroll;
+        onScrollAction();
     }
 
     public void setSelectableScrollDuration(int selectableScrollDuration) {
         this.selectableScrollDuration = selectableScrollDuration;
     }
 
+    public void setMaxCenterScale(double maxCenterScale) {
+        this.maxCenterScale = maxCenterScale;
+        onScrollAction();
+    }
+
+    public void setMinSideScale(double minSideScale) {
+        this.minSideScale = minSideScale;
+        onScrollAction();
+    }
+
+    public void setDeltaScaleView(double deltaScaleView) {
+        this.deltaScaleView = deltaScaleView;
+        onScrollAction();
+    }
 
     /**
      * Get updated percent scale from

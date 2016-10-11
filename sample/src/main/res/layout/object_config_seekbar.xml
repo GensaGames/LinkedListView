@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/object.seekbar.description"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="@string/object_linked_mainholder_description"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/object.seekbar"
+        app:dsb_min="100"
+        app:dsb_max="200" />
+
+
+</LinearLayout>
