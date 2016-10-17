@@ -17,11 +17,6 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
      */
     private double maxCenterScale;
     /**
-     * Min scale from max left scroll
-     * value and right sides (Percent)
-     */
-    private double minSideScale;
-    /**
      * Delta between two previous
      * values when scrolling (Percent)
      */
@@ -40,7 +35,6 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
      */
     public ScaleCenterController() {
         maxCenterScale = 1.0;
-        minSideScale = 1.0;
         deltaScaleView = 2.0;
     }
 
@@ -48,11 +42,9 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
      * Parameters constructor:
      *
      * @param maxCenterScale - center max percent scale
-     * @param minSideScale - side min percent scale
      */
-    public ScaleCenterController(double maxCenterScale, double minSideScale) {
+    public ScaleCenterController(double maxCenterScale) {
         this.maxCenterScale = maxCenterScale;
-        this.minSideScale = minSideScale;
         deltaScaleView = 2.0;
     }
 
@@ -60,12 +52,10 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
      * * Parameters constructor:
      *
      * @param maxCenterScale - center max percent scale
-     * @param minSideScale - side min percent scale
      * @param deltaScaleView - delta between previous values
      */
-    public ScaleCenterController(double maxCenterScale, double minSideScale, double deltaScaleView) {
+    public ScaleCenterController(double maxCenterScale, double deltaScaleView) {
         this.maxCenterScale = maxCenterScale;
-        this.minSideScale = minSideScale;
         this.deltaScaleView = deltaScaleView;
     }
 
@@ -118,11 +108,6 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
         onScrollAction();
     }
 
-    public void setMinSideScale(double minSideScale) {
-        this.minSideScale = minSideScale;
-        onScrollAction();
-    }
-
     public void setDeltaScaleView(double deltaScaleView) {
         this.deltaScaleView = deltaScaleView;
         onScrollAction();
@@ -138,7 +123,7 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
      */
     public double getScrollToCenterRate(int difference, int scrollViewWidth) {
         double pcDifference = (double) Math.abs(difference) / (scrollViewWidth / deltaScaleView);
-        return (maxCenterScale - pcDifference) + minSideScale;
+        return (maxCenterScale - pcDifference) + maxCenterScale;
     }
 
 

@@ -24,7 +24,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
  * GensaGames
  */
 public class ActivityScaleCircle extends Activity implements View.OnClickListener,
-                LinkedListView.OnItemClickListener{
+        LinkedListView.OnItemClickListener {
 
 
     private LinearLayout mainLayoutSpace;
@@ -49,10 +49,9 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, sample element initializing
      * and using for handling animation, clicks, etc.
-     *
      */
     private void setupCircleData() {
-        animationController = new ScaleCenterController(1.5, 0.5);
+        animationController = new ScaleCenterController(1.0);
         linkedListView.setAnimationController(animationController);
 
         pagerAdapter = new ScaleCenterAdapter(this);
@@ -63,7 +62,6 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
     /**
      * Testing work with LinkedListView, adding view to last index,
      * adding view in median index, removing view from index.
-     *
      */
     @Override
     public void onClick(View v) {
@@ -84,14 +82,6 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
-
-    /**
-     * -------------------------------------------
-     *  Ignore! Base test generation stubs! For
-     *  creating screenshots, and looking.
-     *
-     * -------------------------------------------
-     */
 
     private void bindActivity() {
         mainLayoutSpace = (LinearLayout) findViewById(R.id.layout_main_holder);
@@ -124,14 +114,14 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
 
     }
 
+    /**
+     * ----- Creating all options to handle with AnimationController -----
+     */
     private void scaleCenterControllerSetting() {
-        LayoutInflater ltInflater = getLayoutInflater();
-        ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.object_config, mainLayoutSpace, false);
+        ViewGroup viewGroup = (ViewGroup) getLayoutInflater()
+                .inflate(R.layout.object_config, mainLayoutSpace, false);
         ViewGroup mainHolder = (LinearLayout) viewGroup.findViewById(R.id.object_main_layout);
 
-        /**
-         * ------------------------------------
-         */
         ((TextView) viewGroup.findViewById(R.id.object_text_header_first))
                 .setText(ScaleCenterController.class.getSimpleName());
         ((TextView) viewGroup.findViewById(R.id.object_text_description_first))
@@ -147,18 +137,24 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
                     }
                 });
 
-        /**
-         * -------------------- Center Max Scale----------------
-         */
 
-        ViewGroup seekBarGroup1 = (ViewGroup) ltInflater.inflate(R.layout.object_config_seekbar,
-                mainLayoutSpace, false);
-        ((TextView) seekBarGroup1.findViewById(R.id.object_seekbar_description))
-                .setText(getString(R.string.object_scalecenter_seekbar_description));
-        DiscreteSeekBar seekBar = (DiscreteSeekBar) seekBarGroup1.findViewById(R.id.object_seekbar);
-        seekBar.setMin(100);
-        seekBar.setMax(200);
-        seekBar.setProgress(150);
+        optionSetMaxScale(mainHolder);
+        optionMinSideScale(mainHolder);
+        mainLayoutSpace.addView(viewGroup);
+    }
+
+    /**
+     * ------- ScaleCenterController - Center Max Scale-----------
+     */
+    private void optionSetMaxScale(ViewGroup parentView) {
+        ViewGroup seekBarGroup = (ViewGroup) getLayoutInflater()
+                .inflate(R.layout.object_config_seekbar, mainLayoutSpace, false);
+        ((TextView) seekBarGroup.findViewById(R.id.object_seekbar_description))
+                .setText(getString(R.string.object_scalecenter_seekbar_description1));
+        DiscreteSeekBar seekBar = (DiscreteSeekBar) seekBarGroup.findViewById(R.id.object_seekbar);
+        seekBar.setMin(50);
+        seekBar.setMax(150);
+        seekBar.setProgress(100);
         seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
@@ -173,10 +169,36 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
             public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
             }
         });
-        mainHolder.addView(seekBarGroup1);
+        parentView.addView(seekBarGroup);
+    }
 
+    /**
+     * ------ ScaleCenterController - Min Side Delta ----------------
+     */
+    private void optionMinSideScale(ViewGroup parentView) {
+        ViewGroup seekBarGroup = (ViewGroup) getLayoutInflater()
+                .inflate(R.layout.object_config_seekbar, mainLayoutSpace, false);
+        ((TextView) seekBarGroup.findViewById(R.id.object_seekbar_description))
+                .setText(getString(R.string.object_scalecenter_seekbar_description2));
+        DiscreteSeekBar seekBar = (DiscreteSeekBar) seekBarGroup.findViewById(R.id.object_seekbar);
+        seekBar.setMin(100);
+        seekBar.setMax(350);
+        seekBar.setProgress(150);
+        seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+            @Override
+            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+                animationController.setDeltaScaleView(((double) value / 100));
+            }
 
-        mainLayoutSpace.addView(viewGroup);
+            @Override
+            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+            }
+        });
+        parentView.addView(seekBarGroup);
     }
 
     private void requestButtonsToFront() {
