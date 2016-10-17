@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.linkedlistview.sample.PointMovingAdapter;
-import com.gensagames.linkedlistview.sample.utils.DefaultSize;
+import com.gensagames.linkedlistview.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
+import com.gensagames.sample.adapter.sample.PointMovingAdapter;
 import com.thedeanda.lorem.LoremIpsum;
 
 import java.util.Random;

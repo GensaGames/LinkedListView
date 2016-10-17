@@ -1,4 +1,4 @@
-package com.gensagames.linkedlistview.sample;
+package com.gensagames.sample.adapter.sample;
 
 import android.content.Context;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
+import com.gensagames.linkedlistview.utils.BaseDrawable;
 
 import java.util.LinkedList;
 

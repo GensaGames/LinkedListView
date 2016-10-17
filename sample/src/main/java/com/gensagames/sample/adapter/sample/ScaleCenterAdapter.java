@@ -1,12 +1,12 @@
-package com.gensagames.linkedlistview.sample;
+package com.gensagames.sample.adapter.sample;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gensagames.linkedlistview.LinkedListView;
-import com.gensagames.linkedlistview.sample.utils.BaseDrawable;
-import com.gensagames.linkedlistview.sample.utils.DefaultSize;
+import com.gensagames.linkedlistview.utils.BaseDrawable;
+import com.gensagames.linkedlistview.utils.DefaultSize;
+import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
 
 import java.util.LinkedList;
 
@@ -15,7 +15,7 @@ import java.util.LinkedList;
  * Created by Genka on 25.01.2016.
  * GensaGames
  */
-public class ScaleCenterAdapter extends LinkedListView.Adapter  {
+public class ScaleCenterAdapter extends SampleLinkedAdapter {
 
     private Context mainContext;
     private LinkedList<View> mainViewList;
@@ -25,6 +25,7 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
         mainViewList = new LinkedList<>();
     }
 
+    @Override
     public void addSimpleView () {
         ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CIRCLE_PARENT, DefaultSize.CIRCLE_VIEW);
         circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_VIEW));
@@ -32,13 +33,7 @@ public class ScaleCenterAdapter extends LinkedListView.Adapter  {
         notifyDataSetChanged();
     }
 
-    public void addSimpleView ( int index) {
-        ViewGroup circleView = BaseDrawable.getSimpleCircle(mainContext, DefaultSize.CIRCLE_PARENT, DefaultSize.CIRCLE_VIEW);
-        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_VIEW));
-        mainViewList.add(index, circleView);
-        notifyDataSetChanged();
-    }
-
+    @Override
     public void deleteView(int index) {
         if (index >= 0 && !mainViewList.isEmpty()) {
             mainViewList.remove(index);

@@ -1,4 +1,4 @@
-package com.gensagames.linkedlistview.sample.utils;
+package com.gensagames.linkedlistview.utils;
 
 import android.content.Context;
 import android.graphics.Color;

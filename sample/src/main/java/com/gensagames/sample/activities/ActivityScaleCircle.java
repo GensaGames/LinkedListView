@@ -1,6 +1,5 @@
 package com.gensagames.sample.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,10 @@ import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.ScaleCenterController;
-import com.gensagames.linkedlistview.sample.ScaleCenterAdapter;
-import com.gensagames.linkedlistview.sample.utils.DefaultSize;
+import com.gensagames.linkedlistview.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
+import com.gensagames.sample.adapter.sample.ScaleCenterAdapter;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -23,34 +22,17 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
  * Created by Genka on 09.05.2016.
  * GensaGames
  */
-public class ActivityScaleCircle extends Activity implements View.OnClickListener,
-        LinkedListView.OnItemClickListener {
+public class ActivityScaleCircle extends BaseSampleActivity {
 
-
-    private LinearLayout mainLayoutSpace;
-    private LinkedListView linkedListView;
-    private ScaleCenterAdapter pagerAdapter;
-    private ScaleCenterController animationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample_linkedlistview);
-
-        bindActivity();
-        setupCircleData();
-
-
-        linkedListViewSetting();
         scaleCenterControllerSetting();
-        requestButtonsToFront();
     }
 
-    /**
-     * Testing work with LinkedListView, sample element initializing
-     * and using for handling animation, clicks, etc.
-     */
-    private void setupCircleData() {
+    @Override
+    public void setupLinkedListViewData() {
         animationController = new ScaleCenterController(1.0);
         linkedListView.setAnimationController(animationController);
 
@@ -82,13 +64,6 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
     }
 
-
-    private void bindActivity() {
-        mainLayoutSpace = (LinearLayout) findViewById(R.id.layout_main_holder);
-        linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
-        findViewById(R.id.activity_fab_add_objects).setOnClickListener(this);
-        findViewById(R.id.activity_fab_add_objects1).setOnClickListener(this);
-    }
 
     private void linkedListViewSetting() {
         LayoutInflater ltInflater = getLayoutInflater();
@@ -132,7 +107,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        animationController.setSelectableScroll(isChecked);
+                        ((ScaleCenterController) animationController).setSelectableScroll(isChecked);
                         linkedListView.onScrollChanged();
                     }
                 });
@@ -158,7 +133,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                animationController.setMaxCenterScale(((double) value / 100));
+                ((ScaleCenterController) animationController).setMaxCenterScale(((double) value / 100));
             }
 
             @Override
@@ -187,7 +162,7 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
         seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                animationController.setDeltaScaleView(((double) value / 100));
+                ((ScaleCenterController) animationController).setDeltaScaleView(((double) value / 100));
             }
 
             @Override
@@ -199,10 +174,5 @@ public class ActivityScaleCircle extends Activity implements View.OnClickListene
             }
         });
         parentView.addView(seekBarGroup);
-    }
-
-    private void requestButtonsToFront() {
-        findViewById(R.id.activity_fab_add_objects).bringToFront();
-        findViewById(R.id.activity_fab_add_objects1).bringToFront();
     }
 }
