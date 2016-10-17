@@ -1,19 +1,15 @@
 package com.gensagames.sample.activities;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.ScaleCenterController;
-import com.gensagames.linkedlistview.utils.DefaultSize;
-import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
+import com.gensagames.sample.activities.helper.BaseSampleActivity;
 import com.gensagames.sample.adapter.sample.ScaleCenterAdapter;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
@@ -41,53 +37,6 @@ public class ActivityScaleCircle extends BaseSampleActivity {
         linkedListView.setViewPager(pagerAdapter);
     }
 
-    /**
-     * Testing work with LinkedListView, adding view to last index,
-     * adding view in median index, removing view from index.
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.activity_fab_add_objects:
-                ActivityMain.showToast(getApplicationContext(), "Adding last view");
-                pagerAdapter.addSimpleView();
-                break;
-            case R.id.activity_fab_add_objects1:
-                ActivityMain.showToast(getApplicationContext(), "Remove last view");
-                pagerAdapter.deleteView(pagerAdapter.getObjectCount() - 1);
-                break;
-        }
-    }
-
-    @Override
-    public void onItemClick(View view) {
-        animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
-    }
-
-
-    private void linkedListViewSetting() {
-        LayoutInflater ltInflater = getLayoutInflater();
-
-        ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.object_config, mainLayoutSpace, false);
-        ((TextView) viewGroup.findViewById(R.id.object_text_header_first))
-                .setText(LinkedListView.class.getSimpleName());
-        ((TextView) viewGroup.findViewById(R.id.object_text_description_first))
-                .setText(getString(R.string.object_linked_mainholder_description));
-        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
-                .setText(getString(R.string.object_linked_mainholder_checkbox));
-        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        int sidePadding = isChecked ? linkedListView.getWidth() / 2
-                                - linkedListView.getPaddingStart() - linkedListView.getPaddingEnd() : 0;
-                        linkedListView.getMainViewHolder().setPadding(sidePadding, 0, sidePadding, 0);
-                        linkedListView.onScrollChanged();
-                    }
-                });
-        mainLayoutSpace.addView(viewGroup);
-
-    }
 
     /**
      * ----- Creating all options to handle with AnimationController -----

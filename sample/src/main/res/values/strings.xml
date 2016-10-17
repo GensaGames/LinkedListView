@@ -25,5 +25,15 @@
         Set in float and represent value in percentage. Should be components
         with other settings too! </string>
 
+    <!-- =========================== PointMovingSample ============================== -->
+  <string name="object_pointvoing_sample_description1">Simple example of SideMovingController,
+        where all views transforms their X location from center to side, to make lock view on sides.</string>
+  <string name="object_pointvoing_sample_description2">Same example of SimplePointMoving,
+      just more complicated behavior, based on extended PointMovingController class.</string>
+
+    <!-- =========================== CenterMotionSample ============================== -->
+  <string name="object_center_motion_description1">Same example, like in ScaleCenterController,
+      where we used selection on views, when scrolling stops. </string>
+    <string name="object_center_motion_checkbox1">setSelectableScroll(?)</string>
 
 </resources>

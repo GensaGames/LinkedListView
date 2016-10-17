@@ -13,7 +13,7 @@ public abstract class SideMovingController extends LinkedListView.AnimationContr
 
 
     public SideMovingController () {
-        throw new UnsupportedOperationException("This controller not implemented now!");
+        throw new UnsupportedOperationException("This controller not implemented yet!");
     }
     public ViewGroup getMainListView () {
         return null;

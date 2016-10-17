@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.linkedlistview.utils.BaseDrawable;
 import com.gensagames.linkedlistview.utils.DefaultSize;
+import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
+import com.gensagames.sample.util.BaseDrawable;
 
 import java.util.LinkedList;
 
@@ -15,7 +15,7 @@ import java.util.LinkedList;
  * Created by Genka on 16.07.2016.
  * GensaGames
  */
-public class MotionCenterAdapter extends LinkedListView.Adapter  {
+public class MotionCenterAdapter extends SampleLinkedAdapter {
 
     private Context mainContext;
     private LinkedList<View> mainViewList;
@@ -25,6 +25,7 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
         mainViewList = new LinkedList<>();
     }
 
+    @Override
     public void addSimpleView () {
         ViewGroup circleView = BaseDrawable.getMotionView(mainContext,
                 DefaultSize.CENTER_MOTION_PARENT, DefaultSize.CENTER_MOTION_CIRCLE);
@@ -33,14 +34,7 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
         notifyDataSetChanged();
     }
 
-    public void addSimpleView ( int index) {
-        ViewGroup circleView = BaseDrawable.getMotionView(mainContext,
-                DefaultSize.CENTER_MOTION_PARENT, DefaultSize.CENTER_MOTION_CIRCLE);
-        circleView.addView(BaseDrawable.getCustomImage(mainContext, DefaultSize.CIRCLE_PARENT));
-        mainViewList.add(index, circleView);
-        notifyDataSetChanged();
-    }
-
+    @Override
     public void deleteView(int index) {
         mainViewList.remove(index);
         notifyDataSetChanged();
@@ -62,16 +56,6 @@ public class MotionCenterAdapter extends LinkedListView.Adapter  {
     public static class AnimationController extends CenterMotionController {
 
         public AnimationController() {
-        }
-
-        @Override
-        public void onScrollStop() {
-
-        }
-
-        @Override
-        public void onScrollStart() {
-
         }
     }
 }

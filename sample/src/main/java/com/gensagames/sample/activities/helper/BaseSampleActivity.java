@@ -1,4 +1,4 @@
-package com.gensagames.sample.activities;
+package com.gensagames.sample.activities.helper;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

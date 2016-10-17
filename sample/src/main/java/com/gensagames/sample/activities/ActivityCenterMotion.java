@@ -1,51 +1,27 @@
 package com.gensagames.sample.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.linkedlistview.utils.DefaultSize;
-import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
+import com.gensagames.sample.activities.helper.BaseSampleActivity;
 import com.gensagames.sample.adapter.sample.MotionCenterAdapter;
-import com.thedeanda.lorem.LoremIpsum;
 
-import java.util.Random;
+public class ActivityCenterMotion extends BaseSampleActivity {
 
-public class ActivityCenterMotion extends AppCompatActivity implements View.OnClickListener,
-        LinkedListView.OnItemClickListener {
-
-
-    private LinkedListView linkedListView;
-    private MotionCenterAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_center_motion);
-
-        bindActivity();
-        loadBaseStubs();
-        setupPointData();
+        motionCenterControllerSetting();
     }
 
-
-    /**
-     * Testing work with LinkedListView, sample element initializing
-     * and using for handling animation, clicks, etc.
-     *
-     */
-
-    CenterMotionController animationController;
-
-    private void setupPointData() {
-        linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
+    @Override
+    public void setupLinkedListViewData() {
         animationController = new MotionCenterAdapter.AnimationController();
         pagerAdapter = new MotionCenterAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
@@ -55,84 +31,29 @@ public class ActivityCenterMotion extends AppCompatActivity implements View.OnCl
     }
 
     /**
-     * Testing work with LinkedListView, adding view to last index,
-     * adding view in median index, removing view from index.
-     *
+     * ----- Creating all options to handle with AnimationController -----
      */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.activity_fab_add_objects:
-                ActivityMain.showToast(getApplicationContext(), "Adding last view");
-                pagerAdapter.addSimpleView();
-                break;
-            case R.id.activity_fab_add_objects1:
-                ActivityMain.showToast(getApplicationContext(), "Remove last view");
-                pagerAdapter.addSimpleView(pagerAdapter.getObjectCount() - 1);
-                break;
-            case R.id.activity_fab_add_objects2:
-                pagerAdapter.deleteView(pagerAdapter.getObjectCount() - 1);
-                break;
-        }
+    private void motionCenterControllerSetting() {
+        ViewGroup viewGroup = (ViewGroup) getLayoutInflater()
+                .inflate(R.layout.object_config, mainLayoutSpace, false);
+
+        ((TextView) viewGroup.findViewById(R.id.object_text_header_first))
+                .setText(CenterMotionController.class.getSimpleName());
+        ((TextView) viewGroup.findViewById(R.id.object_text_description_first))
+                .setText(getString(R.string.object_center_motion_description1));
+        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
+                .setText(getString(R.string.object_center_motion_checkbox1));
+        ((CheckBox) viewGroup.findViewById(R.id.object_checkbox_first))
+                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        ((CenterMotionController) animationController).setSelectableScroll(isChecked);
+                        linkedListView.onScrollChanged();
+                    }
+                });
+
+        mainLayoutSpace.addView(viewGroup);
     }
 
-    @Override
-    public void onItemClick(View view) {
-        animationController.animateScrollTo(view, DefaultSize.SCROLL_ANIM_DURATION);
-    }
-
-
-    /**
-     * Testing work with LinkedListView, adding view to last index,
-     * adding view in median index, removing view from index.
-     *
-     */
-
-    private void bindActivity() {
-        linkedListView = (LinkedListView) findViewById(R.id.custom_pager_circle);
-        findViewById(R.id.activity_fab_add_objects).setOnClickListener(this);
-        findViewById(R.id.activity_fab_add_objects1).setOnClickListener(this);
-        findViewById(R.id.activity_fab_add_objects2).setOnClickListener(this);
-    }
-
-    private void loadBaseStubs () {
-        LinearLayout mainViewHolder = (LinearLayout) findViewById(R.id.layout_main_holder);
-        LayoutInflater ltInflater = getLayoutInflater();
-
-        for (int i = 0; i < 6; i++) {
-            ViewGroup viewGroup = (ViewGroup) ltInflater.inflate(R.layout.base_list_item_1, null, false);
-            TextView text1 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text1);
-            TextView text2 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text2);
-            TextView text3 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text3);
-            TextView text4 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text4);
-
-            text1.setText(LoremIpsum.getInstance().getCity());
-            text2.setText(LoremIpsum.getInstance().getCity());
-            text3.setText(LoremIpsum.getInstance().getCity());
-            text4.setText(LoremIpsum.getInstance().getCity());
-
-            TextView textEstimate1 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text_estimate1);
-            TextView textEstimate2 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text_estimate2);
-            TextView textEstimate3 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text_estimate3);
-            TextView textEstimate4 = (TextView)
-                    viewGroup.findViewById(R.id.adapter_text_estimate4);
-
-            textEstimate1.setText(String.valueOf(new Random().nextInt(200)));
-            textEstimate2.setText(String.valueOf(new Random().nextInt(200)));
-            textEstimate3.setText(String.valueOf(new Random().nextInt(200)));
-            textEstimate4.setText(String.valueOf(new Random().nextInt(200)));
-            mainViewHolder.addView(viewGroup);
-        }
-        findViewById(R.id.activity_fab_add_objects).bringToFront();
-        findViewById(R.id.activity_fab_add_objects1).bringToFront();
-        findViewById(R.id.activity_fab_add_objects2).bringToFront();
-    }
 
 }

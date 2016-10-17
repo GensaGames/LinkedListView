@@ -1,4 +1,4 @@
-package com.gensagames.linkedlistview.utils;
+package com.gensagames.sample.util;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.gensagames.linkedlistview.utils.DefaultSize;
 
 
 /**

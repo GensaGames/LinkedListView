@@ -12,9 +12,42 @@ import com.gensagames.linkedlistview.LinkedListView;
  */
 public abstract class CenterMotionController extends LinkedListView.AnimationController {
 
+    /**
+     * Max overlap on other views. Should be configured
+     * on every usage!
+     */
     private float maxTranslationX = 82;
 
+    /**
+     * Configurable from methods values
+     */
+    private int selectableScrollDuration = 300;
+    private boolean isSelectableScroll;
+
     public CenterMotionController() {
+    }
+
+
+    public void setSelectableScroll(boolean isSelectableScroll) {
+        this.isSelectableScroll = isSelectableScroll;
+        onScrollAction();
+    }
+
+    public void setSelectableScrollDuration(int selectableScrollDuration) {
+        this.selectableScrollDuration = selectableScrollDuration;
+    }
+
+
+    @Override
+    public void onScrollStart() {
+
+    }
+
+    @Override
+    public void onScrollStop() {
+        if (isSelectableScroll) {
+            animateScrollTo(getMainViewHolder().getChildAt(getCenterViewIndex()), selectableScrollDuration);
+        }
     }
 
     @Override
@@ -39,7 +72,7 @@ public abstract class CenterMotionController extends LinkedListView.AnimationCon
         }
     }
 
-    public float updateSideTranslation(View mainView) {
+    private float updateSideTranslation(View mainView) {
         int leftSeparate = getScrollToLeftSeparate(mainView);
         int rightSeparate = getScrollToRightSeparate(mainView);
         int maxSide = getScrollViewWidth() / 4;
@@ -55,19 +88,19 @@ public abstract class CenterMotionController extends LinkedListView.AnimationCon
     }
 
 
-    public int getScrollToLeftSeparate(View viewOnLayout) {
+    private int getScrollToLeftSeparate(View viewOnLayout) {
         int scrollToCenter = getScroll() + getScrollViewWidth() / 4;
         int scrollToView = getScrollToView(viewOnLayout) + (viewOnLayout.getWidth() / 2);
         return scrollToView - scrollToCenter;
     }
 
-    public int getScrollToRightSeparate(View viewOnLayout) {
+    private int getScrollToRightSeparate(View viewOnLayout) {
         int scrollToCenter = getScroll() + ((getScrollViewWidth() / 4) * 3);
         int scrollToView = getScrollToView(viewOnLayout) + (viewOnLayout.getWidth() / 2);
         return scrollToView - scrollToCenter;
     }
 
-    public float getUpdatedTranslation(int separateDiff, float currentTrans) {
+    private float getUpdatedTranslation(int separateDiff, float currentTrans) {
         return (Math.abs((float) separateDiff / (getScrollViewWidth() / 4)) * currentTrans);
     }
 

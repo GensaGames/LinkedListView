@@ -5,9 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.linkedlistview.utils.BaseDrawable;
+import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
+import com.gensagames.sample.util.BaseDrawable;
 
 import java.util.LinkedList;
 
@@ -15,7 +15,7 @@ import java.util.LinkedList;
  * Created by Genka on 10.05.2016.
  * GensaGames
  */
-public class SimplePointAdapter extends LinkedListView.Adapter {
+public class SimplePointAdapter extends SampleLinkedAdapter {
 
     private Context mainContext;
     private LinkedList<View> mainViewList;
@@ -25,20 +25,16 @@ public class SimplePointAdapter extends LinkedListView.Adapter {
         mainViewList = new LinkedList<>();
     }
 
+    @Override
     public void addSimpleView() {
         ViewGroup mainView = BaseDrawable.getNumericPoint(mainContext);
         mainViewList.add(mainView);
         notifyDataSetChanged();
     }
 
+    @Override
     public void deleteView(int index) {
         mainViewList.remove(index);
-        notifyDataSetChanged();
-    }
-
-    public void addSimpleView(int index) {
-        ViewGroup mainView = BaseDrawable.getNumericPoint(mainContext);
-        mainViewList.add(index, mainView);
         notifyDataSetChanged();
     }
 
