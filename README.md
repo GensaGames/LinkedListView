@@ -6,9 +6,9 @@ It's simple view, that hold view and save links in list. Using several implement
 
 
 
-<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-SimplePointMoving.gif" width="280" height="450" />
-<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-ScaleCenter.gif" width="280" height="450" />
-<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-PointMoving.gif" width="280" height="450" />
+<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-SimplePointMoving.png" width="280" height="450" />
+<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-ScaleCenter.png" width="280" height="450" />
+<img src="https://raw.githubusercontent.com/GensaGames/LinkedListView/master/screenshots/Screen-PointMoving.png" width="280" height="450" />
 
 
 
