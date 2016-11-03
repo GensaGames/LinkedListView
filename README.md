@@ -1,4 +1,4 @@
-# LinkedListView - 0.2.1
+# LinkedListView - 0.4.2
 
 [ ![Download](https://api.bintray.com/packages/gensagames/maven/linkedlistview/images/download.svg) ](https://bintray.com/gensagames/maven/linkedlistview/_latestVersion)
  
@@ -18,7 +18,7 @@ You can find library in Maven and JCenter. Adding to project:
 #### Gradle
 ```
 dependencies {
-    compile 'com.github.gensagames:linkedlistview:0.2.1'
+    compile 'com.github.gensagames:linkedlistview:0.4.2'
 }
 ```
 #### Maven
@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.github.gensagames</groupId>
   <artifactId>linkedlistview</artifactId>
-  <version>0.2.1</version>
+  <version>0.4.2</version>
   <type>aar</type>
 </dependency>
 ```
@@ -53,5 +53,5 @@ listview.setAnimationController(controller);
 
 MIT License 
 
-Copyright (c) 2016 GensaGames
+Copyright (c) 2016 - 2017 GensaGames
 
