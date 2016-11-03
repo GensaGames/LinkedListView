@@ -1,7 +1,11 @@
 package com.gensagames.sample.activities.helper;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gensagames.linkedlistview.LinkedListView;
+import com.gensagames.linkedlistview.anim.CenterMotionController;
 import com.gensagames.linkedlistview.utils.DefaultSize;
 import com.gensagames.sample.ActivityMain;
 import com.gensagames.sample.R;
@@ -65,8 +70,10 @@ public abstract class BaseSampleActivity extends AppCompatActivity implements Vi
                 pagerAdapter.addSimpleView();
                 break;
             case R.id.activity_fab_add_objects1:
-                ActivityMain.showToast(getApplicationContext(), "Remove last view");
-                pagerAdapter.deleteView(pagerAdapter.getObjectCount() - 1);
+                if (pagerAdapter.getObjectCount() > 0) {
+                    ActivityMain.showToast(getApplicationContext(), "Remove last view");
+                    pagerAdapter.deleteView(pagerAdapter.getObjectCount() - 1);
+                }
                 break;
         }
     }

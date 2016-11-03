@@ -1,6 +1,7 @@
 package com.gensagames.linkedlistview.anim;
 
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,10 +14,12 @@ import com.gensagames.linkedlistview.LinkedListView;
 public abstract class CenterMotionController extends LinkedListView.AnimationController {
 
     /**
-     * Max overlap on other views. Should be configured
-     * on every usage!
+     * Max overlap on other views.
+     * Should be configured on every usage!
      */
-    private float maxTranslationX = 82;
+    private float maxTranslationX = 80;
+    private float optLeftOverlap = 0;
+    private float optRightOverlap = 0;
 
     /**
      * Configurable from methods values
@@ -25,16 +28,6 @@ public abstract class CenterMotionController extends LinkedListView.AnimationCon
     private boolean isSelectableScroll;
 
     public CenterMotionController() {
-    }
-
-
-    public void setSelectableScroll(boolean isSelectableScroll) {
-        this.isSelectableScroll = isSelectableScroll;
-        onScrollAction();
-    }
-
-    public void setSelectableScrollDuration(int selectableScrollDuration) {
-        this.selectableScrollDuration = selectableScrollDuration;
     }
 
 
@@ -67,42 +60,85 @@ public abstract class CenterMotionController extends LinkedListView.AnimationCon
     private void updateCenterTranslation(View mainView) {
         if (getScrollToLeftSeparate(mainView) > 0 && getScrollToRightSeparate(mainView) < 0) {
             int totalScrollToCenter = getTotalScrollToCenter(mainView);
+            int signumOfScroll = (int) Math.signum(totalScrollToCenter);
+            int scrollViewHalf = getScrollViewWidth() / 2;
+
+            float sideOverlap = signumOfScroll < 0 ? scrollViewHalf - getLeftOverlapFromCenter()
+                    :  getRightOverlapFromCenter();
             mainView.setTranslationX(getUpdatedTranslation(totalScrollToCenter,
-                    (maxTranslationX * Math.signum(totalScrollToCenter))));
+                    (maxTranslationX * signumOfScroll), (int) sideOverlap));
         }
     }
 
-    private float updateSideTranslation(View mainView) {
+    public float updateSideTranslation(View mainView) {
         int leftSeparate = getScrollToLeftSeparate(mainView);
         int rightSeparate = getScrollToRightSeparate(mainView);
-        int maxSide = getScrollViewWidth() / 4;
         float updated = 0;
 
-        if (leftSeparate <= 0 && Math.abs(leftSeparate) <= maxSide) {
-            updated = -1 * maxTranslationX + getUpdatedTranslation(leftSeparate, maxTranslationX);
+        if (leftSeparate <= 0) {
+            updated = -1 * maxTranslationX + getUpdatedTranslation(leftSeparate, maxTranslationX,
+                    (int) getLeftOverlapFromCenter());
         }
-        if (rightSeparate >= 0 && Math.abs(rightSeparate) <= maxSide) {
-            updated = maxTranslationX - getUpdatedTranslation(rightSeparate, maxTranslationX);
+        if (rightSeparate >= 0) {
+            updated = maxTranslationX - getUpdatedTranslation(rightSeparate, maxTranslationX,
+                    (int) getRightOverlapFromCenter());
         }
         return updated;
     }
 
 
-    private int getScrollToLeftSeparate(View viewOnLayout) {
-        int scrollToCenter = getScroll() + getScrollViewWidth() / 4;
+    public int getScrollToLeftSeparate(View viewOnLayout) {
+        int scrollToCenter = getScroll() + (int) getLeftOverlapFromCenter ();
         int scrollToView = getScrollToView(viewOnLayout) + (viewOnLayout.getWidth() / 2);
         return scrollToView - scrollToCenter;
     }
 
-    private int getScrollToRightSeparate(View viewOnLayout) {
-        int scrollToCenter = getScroll() + ((getScrollViewWidth() / 4) * 3);
+    public int getScrollToRightSeparate(View viewOnLayout) {
+        int includingScrollViewSide = getScrollViewWidth() / 2;
+        int scrollToSeparate = getScroll() + includingScrollViewSide + (int) getRightOverlapFromCenter();
         int scrollToView = getScrollToView(viewOnLayout) + (viewOnLayout.getWidth() / 2);
-        return scrollToView - scrollToCenter;
+        return scrollToView - scrollToSeparate;
     }
 
-    private float getUpdatedTranslation(int separateDiff, float currentTrans) {
-        return (Math.abs((float) separateDiff / (getScrollViewWidth() / 4)) * currentTrans);
+    private float getUpdatedTranslation(int separateDiff, float currentTrans, int sideOverlap) {
+        return (Math.abs((float) separateDiff / sideOverlap) * currentTrans);
     }
 
+    /**
+     * Getter and Setter
+     */
 
+    public float getLeftOverlapFromCenter () {
+        return getScrollViewWidth() / 4 + optLeftOverlap;
+    }
+
+    public float getRightOverlapFromCenter () {
+        return getScrollViewWidth() / 4 + optRightOverlap;
+    }
+
+    public void setMaxTranslationX (float maxTranslationX) {
+        this.maxTranslationX = maxTranslationX;
+    }
+
+    public void setOptLeftOverlap(float optLeftOverlap) {
+        this.optLeftOverlap = optLeftOverlap;
+    }
+
+    public void setOptRightOverlap(float optRightOverlap) {
+        this.optRightOverlap = optRightOverlap;
+    }
+
+    /**
+     * Selectable scroll action
+     */
+
+
+    public void setSelectableScroll(boolean isSelectableScroll) {
+        this.isSelectableScroll = isSelectableScroll;
+        onScrollAction();
+    }
+
+    public void setSelectableScrollDuration(int selectableScrollDuration) {
+        this.selectableScrollDuration = selectableScrollDuration;
+    }
 }

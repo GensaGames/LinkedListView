@@ -35,5 +35,11 @@
   <string name="object_center_motion_description1">Same example, like in ScaleCenterController,
       where we used selection on views, when scrolling stops. </string>
     <string name="object_center_motion_checkbox1">setSelectableScroll(?)</string>
+     <string name="object_center_motion_margin">This options for setting max side overlap images,
+        and configured for every usage example. </string>
+    <string name="object_center_motion_left_overlap">Set left scroll side,
+        where Views start translation to center</string>
+     <string name="object_center_motion_right_overlap">Set right scroll side,
+        where Views start translation to center</string>
 
 </resources>
