@@ -2,7 +2,7 @@
 
 [ ![Download](https://api.bintray.com/packages/gensagames/maven/linkedlistview/images/download.svg) ](https://bintray.com/gensagames/maven/linkedlistview/_latestVersion)
  
-It's simple view, that hold view and save links in list. Using several implementations - Adapter and AnimationController, LinkedListview allows to animate and change child view in anytime. Library contains several examples, and realization to animate views per scrolling, but LinkedListView only works with coordinates! Feel free to live comments, suggestions and issues.
+It's simple view, that hold view and save links in list. Using several implementations - Adapter and AnimationController, LinkedListview allows to animate and change child view in anytime. Library contains several examples, and realization to animate views per scrolling, but LinkedListView only works with coordinates! Feel free to leave comments, suggestions and issues.
 
 
 
