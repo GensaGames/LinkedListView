@@ -14,8 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gensagames.linkedlistview.utils.DefaultSize;
-
 
 /**
  * Created by Genka on 09.02.2016.

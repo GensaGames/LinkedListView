@@ -31,7 +31,7 @@ public class ActivitySimplePointMoving extends BaseSampleActivity {
         pagerAdapter = new SimplePointAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
-        linkedListView.setViewPager(pagerAdapter);
+        linkedListView.setAdapter(pagerAdapter);
         linkedListView.setAnimationController(animationController);
     }
 

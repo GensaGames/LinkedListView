@@ -1,4 +1,4 @@
-package com.gensagames.linkedlistview.utils;
+package com.gensagames.sample.util;
 
 /**
  * Created by Genka on 25.01.2016.

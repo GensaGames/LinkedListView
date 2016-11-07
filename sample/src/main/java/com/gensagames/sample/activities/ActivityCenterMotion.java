@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.linkedlistview.anim.ScaleCenterController;
 import com.gensagames.sample.R;
 import com.gensagames.sample.activities.helper.BaseSampleActivity;
 import com.gensagames.sample.adapter.sample.MotionCenterAdapter;
@@ -30,7 +29,7 @@ public class ActivityCenterMotion extends BaseSampleActivity {
         pagerAdapter = new MotionCenterAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
-        linkedListView.setViewPager(pagerAdapter);
+        linkedListView.setAdapter(pagerAdapter);
         linkedListView.setAnimationController(animationController);
     }
 

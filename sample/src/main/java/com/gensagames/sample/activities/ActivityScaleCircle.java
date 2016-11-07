@@ -34,7 +34,7 @@ public class ActivityScaleCircle extends BaseSampleActivity {
 
         pagerAdapter = new ScaleCenterAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
-        linkedListView.setViewPager(pagerAdapter);
+        linkedListView.setAdapter(pagerAdapter);
     }
 
 

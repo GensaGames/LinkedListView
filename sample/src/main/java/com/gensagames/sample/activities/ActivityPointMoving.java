@@ -14,7 +14,7 @@ public class ActivityPointMoving extends ActivitySimplePointMoving {
         pagerAdapter = new PointMovingAdapter(this);
         pagerAdapter.setOnItemClickListener(this);
 
-        linkedListView.setViewPager(pagerAdapter);
+        linkedListView.setAdapter(pagerAdapter);
         linkedListView.setAnimationController(animationController);
     }
 }

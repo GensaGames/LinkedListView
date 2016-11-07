@@ -37,6 +37,29 @@ public class LinkedListView extends HorizontalScrollView
         onCreate(context, Gravity.CENTER);
     }
 
+
+    /**
+     * Base initializing for main AnimatedViewPager. Contains our main View holder,
+     * and his parameters = Gravity. Next, we add this layout to our ScrollView.
+     * Setting empty AnimationController and adding ScrollChangeListener.
+     *
+     * @param context       - main View holder LinerLayout
+     * @param holderGravity - gravity for LinerLayout
+     */
+    private void onCreate(Context context, int holderGravity) {
+        scrollListenState = new ScrollListenState();
+        linearMainHolder = new LinearLayout(context);
+        linearMainHolder.setClipChildren(false);
+        linearMainHolder.setClipToPadding(false);
+        linearMainHolder.setGravity(holderGravity);
+        addView(linearMainHolder);
+
+        animationController = new EmptyController();
+        animationController.setContext(this);
+        getViewTreeObserver().addOnScrollChangedListener(this);
+    }
+
+
     /**
      * Method for listening onClick action.
      * This method may be deleted.
@@ -64,27 +87,6 @@ public class LinkedListView extends HorizontalScrollView
         return super.onTouchEvent(ev);
     }
 
-    /**
-     * Base initializing for main AnimatedViewPager. Contains our main View holder,
-     * and his parameters = Gravity. Next, we add this layout to our ScrollView.
-     * Setting empty AnimationController and adding ScrollChangeListener.
-     *
-     * @param context       - main View holder LinerLayout
-     * @param holderGravity - gravity for LinerLayout
-     */
-    private void onCreate(Context context, int holderGravity) {
-        scrollListenState = new ScrollListenState();
-        linearMainHolder = new LinearLayout(context);
-        linearMainHolder.setClipChildren(false);
-        linearMainHolder.setClipToPadding(false);
-        linearMainHolder.setGravity(holderGravity);
-        addView(linearMainHolder);
-
-        animationController = new EmptyController();
-        animationController.setContext(this);
-        getViewTreeObserver().addOnScrollChangedListener(this);
-    }
-
 
     /**
      * Setting up AnimationController
@@ -100,7 +102,7 @@ public class LinkedListView extends HorizontalScrollView
      * Setting up Adapter and call function, for updating Views
      * @param abstractPagerAdapter - AnimatedViewPager.Adapter
      */
-    public void setViewPager(Adapter abstractPagerAdapter) {
+    public void setAdapter(Adapter abstractPagerAdapter) {
         this.abstractPagerAdapter = abstractPagerAdapter;
         this.abstractPagerAdapter.setContext(this);
         updateDataSetChanged();
@@ -116,7 +118,7 @@ public class LinkedListView extends HorizontalScrollView
      * for preventing duplicates.
      */
 
-    public void updateDataSetChanged() {
+    protected void updateDataSetChanged() {
         for (int index = 0; index < abstractPagerAdapter.getObjectCount(); index++) {
             View adapterView = abstractPagerAdapter.getObjectView(index);
 
@@ -318,7 +320,7 @@ public class LinkedListView extends HorizontalScrollView
 
         }
 
-        public final int getScrollViewWidth() {
+        public int getScrollViewWidth() {
             View parent = ((HorizontalScrollView)
                     (getMainViewHolder().getParent()));
             scrollViewWidth = parent.getWidth() - parent.getPaddingStart()
@@ -326,7 +328,7 @@ public class LinkedListView extends HorizontalScrollView
             return scrollViewWidth;
         }
 
-        public final int getCenterViewIndex() {
+        public int getCenterViewIndex() {
             return centerViewIndex;
         }
 
@@ -342,15 +344,15 @@ public class LinkedListView extends HorizontalScrollView
             return mainViewGroup;
         }
 
-        public final int getScroll() {
+        public int getScroll() {
             return lastScrollOffset;
         }
 
-        public final int getFirstVisiblePosition() {
+        public int getFirstVisiblePosition() {
             return firstVisiblePosition;
         }
 
-        public final int getLastVisiblePosition() {
+        public int getLastVisiblePosition() {
             return lastVisiblePosition;
         }
 

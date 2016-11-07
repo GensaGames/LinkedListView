@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.linkedlistview.utils.DefaultSize;
+import com.gensagames.sample.util.DefaultSize;
 import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
 import com.gensagames.sample.util.BaseDrawable;
 
