@@ -120,7 +120,7 @@ public class LinkedListView extends HorizontalScrollView
 
     protected void updateDataSetChanged() {
         for (int index = 0; index < abstractPagerAdapter.getObjectCount(); index++) {
-            View adapterView = abstractPagerAdapter.getObjectView(index);
+            View adapterView = abstractPagerAdapter.getObjectView(index, linearMainHolder);
 
             if (index > linearMainHolder.getChildCount() - 1) {
                 bindView(adapterView);
@@ -389,7 +389,7 @@ public class LinkedListView extends HorizontalScrollView
             }
         }
 
-        public abstract View getObjectView(int position);
+        public abstract View getObjectView(int position, ViewGroup parentView);
 
         public abstract int getObjectCount();
     }

@@ -31,7 +31,7 @@ dependencies {
 publish {
     groupId = 'com.github.gensagames'
     artifactId = 'linkedlistview'
-    publishVersion = '0.4.3'
+    publishVersion = '0.4.4'
     desc = 'Android ListView that holds link to view, for animation. '
     licences = ['MIT']
     website = 'https://github.com/GensaGames/LinkedListView'

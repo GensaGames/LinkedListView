@@ -41,7 +41,7 @@ public class MotionCenterAdapter extends SampleLinkedAdapter {
     }
 
     @Override
-    public View getObjectView(int position) {
+    public View getObjectView(int position, ViewGroup parentView) {
         if (position < mainViewList.size())
             return mainViewList.get(position);
 

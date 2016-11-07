@@ -61,7 +61,7 @@ public class PointMovingAdapter extends SampleLinkedAdapter {
 
 
     @Override
-    public View getObjectView(int position) {
+    public View getObjectView(int position, ViewGroup parentView) {
         return mainViewList.get(position);
     }
 
