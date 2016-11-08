@@ -55,7 +55,7 @@ public class LinkedListView extends HorizontalScrollView
         addView(linearMainHolder);
 
         animationController = new EmptyController();
-        animationController.setContext(this);
+        animationController.setLocalContext(this);
         getViewTreeObserver().addOnScrollChangedListener(this);
     }
 
@@ -95,7 +95,7 @@ public class LinkedListView extends HorizontalScrollView
 
     public void setAnimationController(AnimationController animationController) {
         this.animationController = animationController;
-        this.animationController.setContext(this);
+        this.animationController.setLocalContext(this);
     }
 
     /**
@@ -104,7 +104,7 @@ public class LinkedListView extends HorizontalScrollView
      */
     public void setAdapter(Adapter abstractPagerAdapter) {
         this.abstractPagerAdapter = abstractPagerAdapter;
-        this.abstractPagerAdapter.setContext(this);
+        this.abstractPagerAdapter.setLocalContext(this);
         updateDataSetChanged();
     }
 
@@ -156,7 +156,7 @@ public class LinkedListView extends HorizontalScrollView
 
     private void bindView(View v) {
         linearMainHolder.addView(v);
-        abstractPagerAdapter.bindView(linearMainHolder.indexOfChild(v));
+        abstractPagerAdapter.bindView(v, linearMainHolder.indexOfChild(v));
         v.setOnClickListener(this);
     }
 
@@ -167,7 +167,7 @@ public class LinkedListView extends HorizontalScrollView
 
     private void bindView(View v, int index) {
         linearMainHolder.addView(v, index);
-        abstractPagerAdapter.bindView(index);
+        abstractPagerAdapter.bindView(v, index);
         v.setOnClickListener(this);
     }
 
@@ -224,7 +224,7 @@ public class LinkedListView extends HorizontalScrollView
         public static final String ANIM_LOG = "AnimController";
         public static final String ANIM_PARAM_SCROLL_X = "scrollX";
 
-        private ViewGroup mainViewGroup;
+        private LinkedListView linkedListView;
         private int scrollViewWidth;
         private int lastScrollOffset;
         private int firstVisiblePosition;
@@ -232,8 +232,8 @@ public class LinkedListView extends HorizontalScrollView
         private int scrolledDirection;
         private int centerViewIndex;
 
-        private void setContext(LinkedListView linkedListView) {
-            this.mainViewGroup = (ViewGroup) linkedListView.getChildAt(0);
+        private void setLocalContext(LinkedListView linkedListView) {
+            this.linkedListView = linkedListView;
             onScroll(linkedListView.getScrollX());
         }
 
@@ -339,11 +339,11 @@ public class LinkedListView extends HorizontalScrollView
         }
 
         public final ViewGroup getMainViewHolder() {
-            if (mainViewGroup == null) {
+            if (linkedListView == null) {
                 throw new NullPointerException(AnimationController.class.getSimpleName()
                         + " isn't attached to " + LinkedListView.class.getSimpleName());
             }
-            return mainViewGroup;
+            return (ViewGroup) linkedListView.getChildAt(0);
         }
 
         public int getScroll() {
@@ -373,12 +373,14 @@ public class LinkedListView extends HorizontalScrollView
         private LinkedListView linkedListView;
         private OnItemClickListener onPagerItemClick;
 
-        private void setContext(LinkedListView linkedListView) {
+        private void setLocalContext(LinkedListView linkedListView) {
             this.linkedListView = linkedListView;
         }
 
         public final void notifyDataSetChanged() {
-            linkedListView.updateDataSetChanged();
+            if (linkedListView != null) {
+                linkedListView.updateDataSetChanged();
+            }
         }
 
         public final void setOnItemClickListener(OnItemClickListener onPagerItemClick) {
@@ -395,7 +397,7 @@ public class LinkedListView extends HorizontalScrollView
 
         public abstract int getObjectCount();
 
-        public abstract void bindView(int position);
+        public abstract void bindView(View bindView, int position);
     }
 
     /**

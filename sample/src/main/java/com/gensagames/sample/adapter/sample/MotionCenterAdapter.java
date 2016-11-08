@@ -54,7 +54,7 @@ public class MotionCenterAdapter extends SampleLinkedAdapter {
     }
 
     @Override
-    public void bindView(int position) {
+    public void bindView(View v, int position) {
 
     }
 
