@@ -1,4 +1,4 @@
-# LinkedListView - 0.4.4
+# LinkedListView - 0.4.5
 
 [ ![Download](https://api.bintray.com/packages/gensagames/maven/linkedlistview/images/download.svg) ](https://bintray.com/gensagames/maven/linkedlistview/_latestVersion)
  
@@ -18,7 +18,7 @@ You can find library in Maven and JCenter. Adding to project:
 #### Gradle
 ```
 dependencies {
-    compile 'com.github.gensagames:linkedlistview:0.4.4'
+    compile 'com.github.gensagames:linkedlistview:0.4.5'
 }
 ```
 #### Maven
@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.github.gensagames</groupId>
   <artifactId>linkedlistview</artifactId>
-  <version>0.4.4</version>
+  <version>0.4.5</version>
   <type>aar</type>
 </dependency>
 ```
