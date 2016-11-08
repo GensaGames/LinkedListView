@@ -53,6 +53,11 @@ public class MotionCenterAdapter extends SampleLinkedAdapter {
         return mainViewList.size();
     }
 
+    @Override
+    public void bindView(int position) {
+
+    }
+
     public static class AnimationController extends CenterMotionController {
 
         public AnimationController() {

@@ -156,6 +156,7 @@ public class LinkedListView extends HorizontalScrollView
 
     private void bindView(View v) {
         linearMainHolder.addView(v);
+        abstractPagerAdapter.bindView(linearMainHolder.indexOfChild(v));
         v.setOnClickListener(this);
     }
 
@@ -166,6 +167,7 @@ public class LinkedListView extends HorizontalScrollView
 
     private void bindView(View v, int index) {
         linearMainHolder.addView(v, index);
+        abstractPagerAdapter.bindView(index);
         v.setOnClickListener(this);
     }
 
@@ -392,6 +394,8 @@ public class LinkedListView extends HorizontalScrollView
         public abstract View getObjectView(int position, ViewGroup parentView);
 
         public abstract int getObjectCount();
+
+        public abstract void bindView(int position);
     }
 
     /**

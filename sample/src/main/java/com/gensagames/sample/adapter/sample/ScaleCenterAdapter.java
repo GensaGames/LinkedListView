@@ -53,4 +53,9 @@ public class ScaleCenterAdapter extends SampleLinkedAdapter {
         return mainViewList.size();
     }
 
+    @Override
+    public void bindView(int position) {
+
+    }
+
 }

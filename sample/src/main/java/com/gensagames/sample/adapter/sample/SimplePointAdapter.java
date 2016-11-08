@@ -49,6 +49,11 @@ public class SimplePointAdapter extends SampleLinkedAdapter {
         return mainViewList.size();
     }
 
+    @Override
+    public void bindView(int position) {
+
+    }
+
     /**
      * --------------------------------------------
      * Testing another element - AnimationController,
