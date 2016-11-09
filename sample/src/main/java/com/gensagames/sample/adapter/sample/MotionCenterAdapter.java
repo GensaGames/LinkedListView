@@ -4,10 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.CenterMotionController;
-import com.gensagames.sample.util.DefaultSize;
 import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
 import com.gensagames.sample.util.BaseDrawable;
+import com.gensagames.sample.util.DefaultSize;
 
 import java.util.LinkedList;
 
@@ -41,9 +42,9 @@ public class MotionCenterAdapter extends SampleLinkedAdapter {
     }
 
     @Override
-    public View getObjectView(int position, ViewGroup parentView) {
+    public LinkedListView.ViewHolder getViewHolder(int position, ViewGroup parentView) {
         if (position < mainViewList.size())
-            return mainViewList.get(position);
+            return new LocalHolderTest(mainViewList.get(position));
 
         return null;
     }
@@ -54,13 +55,20 @@ public class MotionCenterAdapter extends SampleLinkedAdapter {
     }
 
     @Override
-    public void bindView(View v, int position) {
+    public void bindView(LinkedListView.ViewHolder v, int position) {
 
     }
 
     public static class AnimationController extends CenterMotionController {
 
         public AnimationController() {
+        }
+    }
+
+    private static class LocalHolderTest extends LinkedListView.ViewHolder {
+
+        public LocalHolderTest(View mainView) {
+            super(mainView);
         }
     }
 }

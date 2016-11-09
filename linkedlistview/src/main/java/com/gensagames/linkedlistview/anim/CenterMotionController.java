@@ -1,7 +1,6 @@
 package com.gensagames.linkedlistview.anim;
 
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,14 +38,23 @@ public abstract class CenterMotionController extends LinkedListView.AnimationCon
     @Override
     public void onScrollStop() {
         if (isSelectableScroll) {
-            animateScrollTo(getMainViewHolder().getChildAt(getCenterViewIndex()), selectableScrollDuration);
+            ViewGroup mainScrollView = getMainViewHolder();
+            if (mainScrollView == null) {
+                return;
+            }
+            animateScrollTo(mainScrollView.getChildAt(getCenterViewIndex()), selectableScrollDuration);
         }
     }
 
     @Override
     public void onScrollAction() {
-        for (int i = 0; i < getMainViewHolder().getChildCount(); i++) {
-            ViewGroup mainView = (ViewGroup) getMainViewHolder().getChildAt(i);
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return;
+        }
+
+        for (int i = 0; i < mainScrollView.getChildCount(); i++) {
+            ViewGroup mainView = (ViewGroup) mainScrollView.getChildAt(i);
             if (mainView == null) {
                 break;
             }

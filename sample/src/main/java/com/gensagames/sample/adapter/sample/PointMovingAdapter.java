@@ -7,10 +7,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
-import com.gensagames.sample.util.DefaultSize;
 import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
 import com.gensagames.sample.util.BaseDrawable;
+import com.gensagames.sample.util.DefaultSize;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -61,8 +62,11 @@ public class PointMovingAdapter extends SampleLinkedAdapter {
 
 
     @Override
-    public View getObjectView(int position, ViewGroup parentView) {
-        return mainViewList.get(position);
+    public LinkedListView.ViewHolder getViewHolder(int position, ViewGroup parentView) {
+        if (position < mainViewList.size())
+            return new LinkedListView.ViewHolder(mainViewList.get(position));
+
+        return null;
     }
 
     @Override
@@ -71,7 +75,7 @@ public class PointMovingAdapter extends SampleLinkedAdapter {
     }
 
     @Override
-    public void bindView(View v, int position) {
+    public void bindView(LinkedListView.ViewHolder v, int position) {
 
     }
 
@@ -95,13 +99,17 @@ public class PointMovingAdapter extends SampleLinkedAdapter {
 
         @Override
         public void animateMovingIn(final ViewGroup mainView) {
+            ViewGroup mainScrollView = getMainViewHolder();
+            if (mainScrollView == null) {
+                return;
+            }
 
             if (animatorMovingInMap.get(mainView) != null
                     && animatorMovingInMap.get(mainView).isStarted()) {
                 return;
             }
 
-            final float scale = getMainViewHolder().getContext().getResources().getDisplayMetrics().density;
+            final float scale = mainScrollView.getContext().getResources().getDisplayMetrics().density;
             int newPositionY = (int) ((getRandomInt(DefaultSize.POINT_ANIM_NIM, DefaultSize.POINT_ANIM_MAX)) * scale + 0.5f);
             AnimatorSet animatorSet = new AnimatorSet();
             PropertyValuesHolder movingUp = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y,

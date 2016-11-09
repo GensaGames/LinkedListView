@@ -120,14 +120,14 @@ public class LinkedListView extends HorizontalScrollView
 
     protected void updateDataSetChanged() {
         for (int index = 0; index < abstractPagerAdapter.getObjectCount(); index++) {
-            View adapterView = abstractPagerAdapter.getObjectView(index, linearMainHolder);
+            ViewHolder adapterView = abstractPagerAdapter.getViewHolder(index, linearMainHolder);
 
-            if (index > linearMainHolder.getChildCount() - 1) {
-                bindView(adapterView);
-            } else if (!linearMainHolder.getChildAt(index).equals(adapterView)
-                    && adapterView.getParent() != null) {
+            if (index >= linearMainHolder.getChildCount()) {
+                bindView(adapterView, linearMainHolder.getChildCount());
+            } else if (!linearMainHolder.getChildAt(index).equals(adapterView.getMainView())
+                    && adapterView.getMainView().getParent() != null) {
                 unBindView(linearMainHolder.getChildAt(index));
-            } else if (!linearMainHolder.getChildAt(index).equals(adapterView)) {
+            } else if (!linearMainHolder.getChildAt(index).equals(adapterView.getMainView())) {
                 bindView(adapterView, index);
             }
         }
@@ -150,29 +150,252 @@ public class LinkedListView extends HorizontalScrollView
     }
 
     /**
-     * Methods for attaching view to main Holder layout on ScrollView.
-     * Called from method - notifyDataSetChanged();
-     */
-
-    private void bindView(View v) {
-        linearMainHolder.addView(v);
-        abstractPagerAdapter.bindView(v, linearMainHolder.indexOfChild(v));
-        v.setOnClickListener(this);
-    }
-
-    /**
      * Methods for attaching view by index to main Holder layout on ScrollView.
      * Called from method - notifyDataSetChanged();
      */
 
-    private void bindView(View v, int index) {
-        linearMainHolder.addView(v, index);
-        abstractPagerAdapter.bindView(v, index);
-        v.setOnClickListener(this);
+    private void bindView(ViewHolder holder, int index) {
+        View view = holder.getMainView();
+        linearMainHolder.addView(view, index);
+        abstractPagerAdapter.bindView(holder, index);
+        view.setOnClickListener(this);
     }
 
 
 
+
+    /**
+     * Interface for main view Items to listen action
+     * Simple interface for adding click listener and callback.
+     */
+
+    public interface OnItemClickListener {
+        void onItemClick(View view);
+    }
+
+    public interface OnScrollingAction {
+        void onScrollStop();
+
+        void onScrollStart();
+    }
+
+    /**
+     * Class returning Animation
+     *
+     * Interface returning animation for two type action growing
+     * up view element and falling down to side.
+     * TODO(Doc): Update Doc about adapter methods.
+     */
+
+    public static abstract class AnimationController implements OnScrollingAction {
+        public static final String ANIM_LOG = "AnimController";
+        public static final String ANIM_PARAM_SCROLL_X = "scrollX";
+
+        private LinkedListView linkedListView;
+        private int scrollViewWidth;
+        private int lastScrollOffset;
+        private int firstVisiblePosition;
+        private int lastVisiblePosition;
+        private int scrolledDirection;
+        private int centerViewIndex;
+
+        private void setLocalContext(LinkedListView linkedListView) {
+            this.linkedListView = linkedListView;
+            onScroll(linkedListView.getScrollX());
+        }
+
+        private void onScroll(int scrollViewValue) {
+            ViewGroup mainViewHolder = getMainViewHolder();
+            if (mainViewHolder == null) {
+                return;
+            }
+            int scrollViewWidth = getScrollViewWidth();
+            int totalScrollScreen = scrollViewValue + scrollViewWidth;
+            int totalScrollToCenter = scrollViewValue + (scrollViewWidth / 2);
+            int viewsOffset = mainViewHolder.getPaddingStart();
+            int firstVisibleIndex = 0;
+            int lastVisibleIndex = 0;
+
+            while (true) {
+                View view = mainViewHolder.getChildAt(lastVisibleIndex);
+                if (view == null) {
+                    break;
+                }
+                int viewWidth = view.getWidth();
+                viewsOffset += viewWidth;
+
+                if (Math.abs(viewsOffset - totalScrollToCenter) <= viewWidth) {
+                    this.centerViewIndex = lastVisibleIndex;
+                }
+
+                if (viewsOffset <= scrollViewValue) {
+                    firstVisibleIndex++;
+                }
+
+                if (viewsOffset < totalScrollScreen) {
+                    lastVisibleIndex++;
+                } else break;
+            }
+            if (totalScrollScreen < scrollViewWidth) {
+                firstVisibleIndex = 0;
+                lastVisibleIndex -= 1;
+            }
+
+            this.scrolledDirection = lastScrollOffset - scrollViewValue;
+            this.firstVisiblePosition = firstVisibleIndex;
+            this.lastVisiblePosition = lastVisibleIndex;
+            lastScrollOffset = scrollViewValue;
+            onScrollAction();
+        }
+
+        public int getScrollToView(View view) {
+            ViewGroup mainViewHolder = getMainViewHolder();
+            if (mainViewHolder == null) {
+                return 0;
+            }
+            int viewsOffset = 0;
+            for (int i = 0; i < mainViewHolder.indexOfChild(view); i++) {
+                viewsOffset += mainViewHolder.getChildAt(i).getWidth();
+            }
+            return viewsOffset + mainViewHolder.getPaddingStart();
+        }
+
+        /**
+         * Get updated value from getScrollToCenter
+         *
+         * @param viewOnLayout - focus view
+         * @return - new int getScrollToCenter
+         * and half of selected view element
+         */
+        @SuppressWarnings("ConstantConditions")
+        public int getTotalScrollToCenter(View viewOnLayout) {
+            if (viewOnLayout != null)
+                viewOnLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            return getScrollToCenter(viewOnLayout) + (viewOnLayout.getWidth() / 2);
+        }
+
+        public int getScrollToCenter(View viewOnLayout) {
+            int scrollToCenter = getScroll() + getScrollViewWidth() / 2;
+            int scrollToView = getScrollToView(viewOnLayout);
+            return scrollToView - scrollToCenter;
+        }
+
+        /**
+         * Use delegation, and call function AnimationController,
+         * for programmatically scroll ScrollView to View position.
+         *
+         * @param viewFocus      - scroll to View
+         * @param scrollDuration - animation duration
+         */
+        public void animateScrollTo(View viewFocus, long scrollDuration) {
+            ViewGroup mainViewHolder = getMainViewHolder();
+            if (mainViewHolder == null) {
+                return;
+            }
+            int scrollToView = getScrollToView(viewFocus) + viewFocus.getWidth() / 2;
+            int scrollSize = scrollToView - getScrollViewWidth() / 2;
+            ObjectAnimator scrollAnimator = ObjectAnimator.ofInt(mainViewHolder
+                    .getParent(), ANIM_PARAM_SCROLL_X, scrollSize);
+            scrollAnimator.setDuration(scrollDuration);
+            scrollAnimator.start();
+
+        }
+
+        public int getScrollViewWidth() {
+            ViewGroup mainViewHolder = getMainViewHolder();
+            if (mainViewHolder == null) {
+                return 0;
+            }
+            View parent = ((HorizontalScrollView) (mainViewHolder.getParent()));
+            scrollViewWidth = parent.getWidth() - parent.getPaddingStart()
+                    - parent.getPaddingEnd();
+            return scrollViewWidth;
+        }
+
+        public int getCenterViewIndex() {
+            return centerViewIndex;
+        }
+
+        public final int getScrolledDirection () {
+            return scrolledDirection;
+        }
+
+        public final ViewGroup getMainViewHolder() {
+            return linkedListView == null ? null :
+                    (ViewGroup) linkedListView.getChildAt(0);
+        }
+
+        public int getScroll() {
+            return lastScrollOffset;
+        }
+
+        public int getFirstVisiblePosition() {
+            return firstVisiblePosition;
+        }
+
+        public int getLastVisiblePosition() {
+            return lastVisiblePosition;
+        }
+
+        public abstract void onScrollAction();
+    }
+
+    /**
+     * Base class for an Adapter
+     *
+     * Adapters provide a binding from an app-specific data set to views that are displayed.
+     * Implements some base methods. TODO(Doc): Update Doc about adapter methods.
+     */
+
+    public static abstract class Adapter {
+        private LinkedListView linkedListView;
+        private OnItemClickListener onPagerItemClick;
+
+        private void setLocalContext(LinkedListView linkedListView) {
+            this.linkedListView = linkedListView;
+        }
+
+        public final void notifyDataSetChanged() {
+            if (linkedListView != null) {
+                linkedListView.updateDataSetChanged();
+            }
+        }
+
+        public final void setOnItemClickListener(OnItemClickListener onPagerItemClick) {
+            this.onPagerItemClick = onPagerItemClick;
+        }
+
+        public final void updateItemClick(View view) {
+            if (onPagerItemClick != null) {
+                onPagerItemClick.onItemClick(view);
+            }
+        }
+
+        public abstract ViewHolder getViewHolder(int position, ViewGroup parentView);
+
+        public abstract int getObjectCount();
+
+        public abstract void bindView(ViewHolder bindHolder, int position);
+    }
+
+    /**
+     * --------------------------------------------------------------------
+     * *************************** Interfaces *****************************
+     * --------------------------------------------------------------------
+     */
+
+    public static class ViewHolder {
+
+        private View mainView;
+
+        public ViewHolder(View mainView) {
+            this.mainView = mainView;
+        }
+
+        public View getMainView() {
+            return mainView;
+        }
+    }
 
     /**
      * --------------------------------------------------------------------
@@ -210,215 +433,5 @@ public class LinkedListView extends HorizontalScrollView
                 postDelayed(this, ViewConfiguration.getTapTimeout());
             }
         }
-    }
-
-    /**
-     * Class returning Animation
-     *
-     * Interface returning animation for two type action growing
-     * up view element and falling down to side.
-     * TODO(Doc): Update Doc about adapter methods.
-     */
-
-    public static abstract class AnimationController implements OnScrollingAction {
-        public static final String ANIM_LOG = "AnimController";
-        public static final String ANIM_PARAM_SCROLL_X = "scrollX";
-
-        private LinkedListView linkedListView;
-        private int scrollViewWidth;
-        private int lastScrollOffset;
-        private int firstVisiblePosition;
-        private int lastVisiblePosition;
-        private int scrolledDirection;
-        private int centerViewIndex;
-
-        private void setLocalContext(LinkedListView linkedListView) {
-            this.linkedListView = linkedListView;
-            onScroll(linkedListView.getScrollX());
-        }
-
-        private void onScroll(int scrollViewValue) {
-            int scrollViewWidth = getScrollViewWidth();
-            int totalScrollScreen = scrollViewValue + scrollViewWidth;
-            int totalScrollToCenter = scrollViewValue + (scrollViewWidth / 2);
-            int firstVisibleIndex = 0;
-            int lastVisibleIndex = 0;
-            int viewsOffset = getMainViewHolder().getPaddingStart();
-
-            while (true) {
-                View view = getMainViewHolder().getChildAt(lastVisibleIndex);
-                if (view == null) {
-                    break;
-                }
-                int viewWidth = view.getWidth();
-                viewsOffset += viewWidth;
-
-                if (Math.abs(viewsOffset - totalScrollToCenter) <= viewWidth) {
-                    this.centerViewIndex = lastVisibleIndex;
-                }
-
-                if (viewsOffset <= scrollViewValue) {
-                    firstVisibleIndex++;
-                }
-
-                if (viewsOffset < totalScrollScreen) {
-                    lastVisibleIndex++;
-                } else break;
-            }
-            if (totalScrollScreen < scrollViewWidth) {
-                firstVisibleIndex = 0;
-                lastVisibleIndex -= 1;
-            }
-
-            this.scrolledDirection = lastScrollOffset - scrollViewValue;
-            this.firstVisiblePosition = firstVisibleIndex;
-            this.lastVisiblePosition = lastVisibleIndex;
-            lastScrollOffset = scrollViewValue;
-            onScrollAction();
-        }
-
-        public int getScrollToView(View view) {
-            int viewsOffset = 0;
-            for (int i = 0; i < getMainViewHolder().indexOfChild(view); i++) {
-                viewsOffset += getMainViewHolder().getChildAt(i).getWidth();
-            }
-            return viewsOffset + getMainViewHolder().getPaddingStart();
-        }
-
-        /**
-         * Get updated value from getScrollToCenter
-         *
-         * @param viewOnLayout - focus view
-         * @return - new int getScrollToCenter
-         * and half of selected view element
-         */
-        @SuppressWarnings("ConstantConditions")
-        public int getTotalScrollToCenter(View viewOnLayout) {
-            if (viewOnLayout != null)
-                viewOnLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-            return getScrollToCenter(viewOnLayout) + (viewOnLayout.getWidth() / 2);
-        }
-
-        public int getScrollToCenter(View viewOnLayout) {
-            int scrollToCenter = getScroll() + getScrollViewWidth() / 2;
-            int scrollToView = getScrollToView(viewOnLayout);
-            return scrollToView - scrollToCenter;
-        }
-
-        /**
-         * Use delegation, and call function AnimationController,
-         * for programmatically scroll ScrollView to View position.
-         *
-         * @param viewFocus      - scroll to View
-         * @param scrollDuration - animation duration
-         */
-        public void animateScrollTo(View viewFocus, long scrollDuration) {
-            int scrollToView = getScrollToView(viewFocus) + viewFocus.getWidth() / 2;
-            int scrollSize = scrollToView - getScrollViewWidth() / 2;
-            ObjectAnimator scrollAnimator = ObjectAnimator.ofInt(getMainViewHolder()
-                    .getParent(), ANIM_PARAM_SCROLL_X, scrollSize);
-            scrollAnimator.setDuration(scrollDuration);
-            scrollAnimator.start();
-
-        }
-
-        public int getScrollViewWidth() {
-            View parent = ((HorizontalScrollView)
-                    (getMainViewHolder().getParent()));
-            scrollViewWidth = parent.getWidth() - parent.getPaddingStart()
-                    - parent.getPaddingEnd();
-            return scrollViewWidth;
-        }
-
-        public int getCenterViewIndex() {
-            return centerViewIndex;
-        }
-
-        public final int getScrolledDirection () {
-            return scrolledDirection;
-        }
-
-        public final ViewGroup getMainViewHolder() {
-            if (linkedListView == null) {
-                throw new NullPointerException(AnimationController.class.getSimpleName()
-                        + " isn't attached to " + LinkedListView.class.getSimpleName());
-            }
-            return (ViewGroup) linkedListView.getChildAt(0);
-        }
-
-        public int getScroll() {
-            return lastScrollOffset;
-        }
-
-        public int getFirstVisiblePosition() {
-            return firstVisiblePosition;
-        }
-
-        public int getLastVisiblePosition() {
-            return lastVisiblePosition;
-        }
-
-        public abstract void onScrollAction();
-    }
-
-
-    /**
-     * Base class for an Adapter
-     *
-     * Adapters provide a binding from an app-specific data set to views that are displayed.
-     * Implements some base methods. TODO(Doc): Update Doc about adapter methods.
-     */
-
-    public static abstract class Adapter {
-        private LinkedListView linkedListView;
-        private OnItemClickListener onPagerItemClick;
-
-        private void setLocalContext(LinkedListView linkedListView) {
-            this.linkedListView = linkedListView;
-        }
-
-        public final void notifyDataSetChanged() {
-            if (linkedListView != null) {
-                linkedListView.updateDataSetChanged();
-            }
-        }
-
-        public final void setOnItemClickListener(OnItemClickListener onPagerItemClick) {
-            this.onPagerItemClick = onPagerItemClick;
-        }
-
-        public final void updateItemClick(View view) {
-            if (onPagerItemClick != null) {
-                onPagerItemClick.onItemClick(view);
-            }
-        }
-
-        public abstract View getObjectView(int position, ViewGroup parentView);
-
-        public abstract int getObjectCount();
-
-        public abstract void bindView(View bindView, int position);
-    }
-
-    /**
-     * --------------------------------------------------------------------
-     * *************************** Interfaces *****************************
-     * --------------------------------------------------------------------
-     */
-
-
-    /**
-     * Interface for main view Items to listen action
-     * Simple interface for adding click listener and callback.
-     */
-
-    public interface OnItemClickListener {
-        void onItemClick(View view);
-    }
-
-
-    public interface OnScrollingAction {
-        void onScrollStop();
-        void onScrollStart();
     }
 }

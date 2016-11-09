@@ -70,8 +70,13 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
         int lastVisibleView = getLastVisiblePosition();
         int scrollViewWidth = getScrollViewWidth();
 
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return;
+        }
+
         for (int i = firstVisibleView; i <= lastVisibleView; i++) {
-            ViewGroup mainView = (ViewGroup) getMainViewHolder().getChildAt(i);
+            ViewGroup mainView = (ViewGroup) mainScrollView.getChildAt(i);
             if (mainView == null) {
                 break;
             }
@@ -90,7 +95,11 @@ public class ScaleCenterController extends LinkedListView.AnimationController {
     @Override
     public void onScrollStop() {
         if (isSelectableScroll) {
-            animateScrollTo(getMainViewHolder().getChildAt(getCenterViewIndex()), selectableScrollDuration);
+            ViewGroup mainScrollView = getMainViewHolder();
+            if (mainScrollView == null) {
+                return;
+            }
+            animateScrollTo(mainScrollView.getChildAt(getCenterViewIndex()), selectableScrollDuration);
         }
     }
 

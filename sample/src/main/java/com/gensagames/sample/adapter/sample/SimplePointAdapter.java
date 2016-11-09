@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gensagames.linkedlistview.LinkedListView;
 import com.gensagames.linkedlistview.anim.PointMovingController;
 import com.gensagames.sample.adapter.helper.SampleLinkedAdapter;
 import com.gensagames.sample.util.BaseDrawable;
@@ -40,8 +41,11 @@ public class SimplePointAdapter extends SampleLinkedAdapter {
 
 
     @Override
-    public View getObjectView(int position, ViewGroup parentView) {
-        return mainViewList.get(position);
+    public LinkedListView.ViewHolder getViewHolder(int position, ViewGroup parentView) {
+        if (position < mainViewList.size())
+            return new LinkedListView.ViewHolder(mainViewList.get(position));
+
+        return null;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class SimplePointAdapter extends SampleLinkedAdapter {
     }
 
     @Override
-    public void bindView(View v, int position) {
+    public void bindView(LinkedListView.ViewHolder v, int position) {
 
     }
 
@@ -68,8 +72,12 @@ public class SimplePointAdapter extends SampleLinkedAdapter {
         public void updateViewsTranslatedX(ViewGroup mainView, int newTranslationX) {
             super.updateViewsTranslatedX(mainView, newTranslationX);
 
+            ViewGroup viewGroup = getMainViewHolder();
+            if (viewGroup == null) {
+                return;
+            }
             if (getFocusViewText(mainView).getText().toString().equals("")) {
-                getFocusViewText(mainView).setText(String.valueOf(getMainViewHolder()
+                getFocusViewText(mainView).setText(String.valueOf(viewGroup
                         .indexOfChild(mainView) + 10));
             }
         }
@@ -91,20 +99,25 @@ public class SimplePointAdapter extends SampleLinkedAdapter {
         }
 
         private void updateClipOutside() {
+            ViewGroup mainHolder = getMainViewHolder();
+            if (mainHolder == null) {
+                return;
+            }
+
             int firstVisible = getFirstVisiblePosition();
             int lastVisible = getLastVisiblePosition();
             for (int i = firstVisible; i <= lastVisible; i++) {
-                ViewGroup viewGroup = (ViewGroup) getMainViewHolder().getChildAt(i);
+                ViewGroup viewGroup = (ViewGroup) mainHolder.getChildAt(i);
                 if (viewGroup == null) {
                     continue;
                 }
                 viewGroup.setVisibility(View.VISIBLE);
             }
-            ViewGroup viewGroupPre = (ViewGroup) getMainViewHolder().getChildAt(firstVisible - 1);
+            ViewGroup viewGroupPre = (ViewGroup) mainHolder.getChildAt(firstVisible - 1);
             if (viewGroupPre != null) {
                 viewGroupPre.setVisibility(View.INVISIBLE);
             }
-            ViewGroup viewGroupPost = (ViewGroup) getMainViewHolder().getChildAt(lastVisible + 1);
+            ViewGroup viewGroupPost = (ViewGroup) mainHolder.getChildAt(lastVisible + 1);
             if (viewGroupPost != null) {
                 viewGroupPost.setVisibility(View.INVISIBLE);
             }

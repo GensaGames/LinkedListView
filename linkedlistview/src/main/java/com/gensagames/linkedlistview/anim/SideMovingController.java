@@ -9,13 +9,14 @@ import com.gensagames.linkedlistview.LinkedListView;
  * Created by Genka on 02.05.2016.
  * GensaGames
  */
+@SuppressWarnings("ALL")
 public abstract class SideMovingController extends LinkedListView.AnimationController {
 
 
-    public SideMovingController () {
-        throw new UnsupportedOperationException("This controller not implemented yet!");
+    private SideMovingController() {
     }
-    public ViewGroup getMainListView () {
+
+    private ViewGroup getMainListView() {
         return null;
     }
 
@@ -25,7 +26,10 @@ public abstract class SideMovingController extends LinkedListView.AnimationContr
     }
 
     public void updateTranslated () {
-        ViewGroup mainViewHolder = getMainViewHolder();
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return;
+        }
         int firstV = getFirstVisiblePosition();
         int lastV = getLastVisiblePosition();
 
@@ -34,9 +38,9 @@ public abstract class SideMovingController extends LinkedListView.AnimationContr
         viewOnList.setTranslationX(getScroll() - getScrollToView(viewOnList));
 
         int viewScroll = 0;
-        for (int i = mainViewHolder.getChildCount(); i > lastV; i--) {
-            if (mainViewHolder.getChildAt(i) != null)
-                viewScroll+= mainViewHolder.getChildAt(i).getWidth();
+        for (int i = mainScrollView.getChildCount(); i > lastV; i--) {
+            if (mainScrollView.getChildAt(i) != null)
+                viewScroll += mainScrollView.getChildAt(i).getWidth();
         }
 
         int scroll = getMainViewHolder().getWidth() - getScrollViewWidth() - getScroll();

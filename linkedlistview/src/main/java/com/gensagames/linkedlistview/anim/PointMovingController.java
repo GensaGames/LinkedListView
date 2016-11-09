@@ -49,12 +49,16 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
      *
      */
     public void updateSideViewsX() {
-        ViewGroup firstViewParent = (ViewGroup) getMainViewHolder()
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return;
+        }
+        ViewGroup firstViewParent = (ViewGroup) mainScrollView
                 .getChildAt(getFirstVisiblePosition());
-        ViewGroup lastViewParent = (ViewGroup) getMainViewHolder()
+        ViewGroup lastViewParent = (ViewGroup) mainScrollView
                 .getChildAt(getLastVisiblePosition());
 
-        if (getScroll() - getMainViewHolder().getPaddingStart() <= 0) {
+        if (getScroll() - mainScrollView.getPaddingStart() <= 0) {
             return;
         }
 
@@ -99,9 +103,13 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
      * For making overlaying with side view!
      */
     public void updateCenterViewsX() {
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return;
+        }
 
         for (int i = getFirstVisiblePosition() + 1; i < getLastVisiblePosition(); i++) {
-            ViewGroup parentView = (ViewGroup)getMainViewHolder().getChildAt(i);
+            ViewGroup parentView = (ViewGroup) mainScrollView.getChildAt(i);
 
             int scrolledToCenter = getScrollToCenter(parentView);
             float translated = calculateScrollTranslated(scrolledToCenter);
@@ -118,11 +126,14 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
      * @return int value of cropped view
      */
     public final int croppedSideView () {
-        ViewGroup mainViewHolder = getMainViewHolder();
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return 0;
+        }
         int croppedSide = 0;
         int scrollViewWidth = getScrollViewWidth();
-        for (int i = 0; i < mainViewHolder.getChildCount(); i ++) {
-            croppedSide+= mainViewHolder.getChildAt(i).getWidth();
+        for (int i = 0; i < mainScrollView.getChildCount(); i++) {
+            croppedSide += mainScrollView.getChildAt(i).getWidth();
             if (croppedSide > scrollViewWidth) {
                 croppedSide = croppedSide - scrollViewWidth;
                 break;
@@ -142,7 +153,12 @@ public abstract class PointMovingController extends LinkedListView.AnimationCont
      */
 
     public float calculateScrollTranslated(int centerDifference) {
-        ViewGroup mainView = (ViewGroup) getMainViewHolder().getChildAt(0);
+        ViewGroup mainScrollView = getMainViewHolder();
+        if (mainScrollView == null) {
+            return 0;
+        }
+
+        ViewGroup mainView = (ViewGroup) mainScrollView.getChildAt(0);
         int updatedCenterDifference = centerDifference + mainView.getWidth() / 2;
 
         float maxAvailableTranslate = (mainView.getWidth() / 2) - mainView.getWidth() / 2;
